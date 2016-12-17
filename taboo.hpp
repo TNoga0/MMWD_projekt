@@ -13,6 +13,7 @@ private:
     int n_wyniku;
     int **best_wynik;
     int **tmp_wynik;
+    int *zaladowanie_samolotu;
 
 public:
     taboo();
