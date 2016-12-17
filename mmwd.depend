@@ -1,16 +1,19 @@
 # depslib dependency file v1.0
-1481977565 source:d:\mmwd\mmwd\main.cpp
+1481986831 source:d:\mmwd\mmwd\main.cpp
 	<iostream>
 	"firma.hpp"
 	"firma.cpp"
 
-1481977396 d:\mmwd\mmwd\firma.hpp
+1481986757 d:\mmwd\mmwd\firma.hpp
+	"taboo.hpp"
 
-1481977675 d:\mmwd\mmwd\firma.cpp
+1481987284 d:\mmwd\mmwd\firma.cpp
 	<iostream>
 	<fstream>
 	<string>
 	<cstdlib>
 	<ctime>
 	"firma.hpp"
+
+1481984983 d:\mmwd\mmwd\taboo.hpp
 

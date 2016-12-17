@@ -1,28 +1,30 @@
 #ifndef TABOO_HPP_INCLUDED
 #define TABOO_HPP_INCLUDED
 
+#define spalanie 0.5   //wartosc z dupska
+#define ladownosc 25
+
 
 class taboo{
 
 private:
-    int roz_zabronien;
-    int **zabronienia;
-    int roz_wyniku;
-    int **wynik;
+    int n_zabr;
+    int **zabronienia;   // to bedzie tablela (symetryczna) gdzie damy np blokade na 3 iteracje
+    int n_wyniku;
+    int **best_wynik;
+    int **tmp_wynik;
 
 public:
     taboo();
     ~taboo();
-    //utworzenie poprawnego wyniku (tego poczatkowego losowego)
+    void InitialSolution();
+    int ObliczFCelu();  //liczy na podstawie danych z tabel i z wyniku <- dla kazdego rozwiazania
+    void showZabronienia();
+    void showWynik();
     //modyfikacja wyniku
     //uwtorzenie listy zabronien
-    //zmiana rozmiaru zabronien
-    //show zabronienia
-    //show wynik
     //robienie sasiedztwa
 
-//mo¿e typedefa gdzies jebnac?
-//trza mieæ ta f celu w koncu
 
 };
 
