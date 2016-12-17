@@ -2,9 +2,9 @@
 #define ZLECENIE_HPP_INCLUDED
 #include "taboo.hpp"
 
-class zlecenie
+class zlecenie : public taboo
 {
-private:
+public:
     int rozmiar;  //ilosc miast
     int **lista_przewozowa;
     int **koszt_tankowania;
