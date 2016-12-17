@@ -18,7 +18,7 @@ public:
     taboo();
     ~taboo();
     void InitialSolution();
-    int ObliczFCelu();  //liczy na podstawie danych z tabel i z wyniku <- dla kazdego rozwiazania
+    int ObliczFCelu(int **rozw);  //liczy na podstawie danych z tabel i z wyniku <- dla kazdego rozwiazania, nie wiem czy dobrze wklepane jako arg
     void showZabronienia();
     void showWynik();
     //modyfikacja wyniku
