@@ -22,6 +22,7 @@ public:
     int ObliczFCelu(int **rozw);  //liczy na podstawie danych z tabel i z wyniku <- dla kazdego rozwiazania, nie wiem czy dobrze wklepane jako arg
     void showZabronienia();
     void showWynik();
+    void oblicz_zaladowanie();
     //modyfikacja wyniku
     //uwtorzenie listy zabronien
     //robienie sasiedztwa
