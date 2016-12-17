@@ -1,0 +1,16 @@
+# depslib dependency file v1.0
+1481977565 source:d:\mmwd\mmwd\main.cpp
+	<iostream>
+	"firma.hpp"
+	"firma.cpp"
+
+1481977396 d:\mmwd\mmwd\firma.hpp
+
+1481977675 d:\mmwd\mmwd\firma.cpp
+	<iostream>
+	<fstream>
+	<string>
+	<cstdlib>
+	<ctime>
+	"firma.hpp"
+
