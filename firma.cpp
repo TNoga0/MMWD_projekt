@@ -80,7 +80,7 @@ bool firma::WczytajzPliku(std:: string NazwaPliku,int rozmiarTabl)
     if( !plik.good() )
          return false;
    while( plik >> lista_przewozowa[ i ][ j ] ) {
-        if( ++j >= 8 ) {
+        if( ++j >= rozmiar ) {
             j = 0;
             i++;
         }
