@@ -26,7 +26,7 @@ taboo::~taboo()
 }
 
 void taboo:: oblicz_zaladowanie(int **wynik) //oblicza załadowanie dla każdego z kroków algorytmu
-{
+{                  
   for(int w=0;w<3;w++)
     for(int k =0;wynik[w][k+2]='/0';k++)
       if(k=0)
@@ -46,4 +46,11 @@ int taboo:: ObliczFCelu(int **rozw)
   for(int w=0;w<3;w++)
     for(int k=1;rozw[w][k]='/0';k++)
       temporary_result = temporary_result + oplata_lotniskowa[k-1]+koszt_tankowania[(rozw[w][k-1])-1][(rozw[w][k])-1]+zaladowanie_samolotu[w][k-1]*odleglosci[wynik[w][k-1]-1][wynik[w][k]-1]*spalanie;
+}
+
+void taboo:: stworz_sasiedztwo()
+{
+     for(
+    
+    
 }
