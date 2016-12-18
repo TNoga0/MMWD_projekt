@@ -13,16 +13,20 @@ private:
     int n_wyniku;
     int **best_wynik;
     int **tmp_wynik;
-    int **zaladowanie_samolotu;
+    int **zaladowanie_samolotu_alg;
+    int **ladunek_samolotu; //wiersze ->samoloty, kolumny ->numer lotniska, czyli 3x8
+    int **sasiedztwo;
 
 public:
     taboo();
     ~taboo();
-    void InitialSolution();
+    int InitialSolution();  //dałem int bo będzie zwracać ilość kolumn wektora rozwiązań
     int ObliczFCelu(int **rozw);  //liczy na podstawie danych z tabel i z wyniku <- dla kazdego rozwiazania, nie wiem czy dobrze wklepane jako arg
     void showZabronienia();
     void showWynik();
     void oblicz_zaladowanie();
+    void stworz_sasiedztwo();
+    int sprawdz_dopuszczalnosc(int ** rozw);
     //modyfikacja wyniku
     //uwtorzenie listy zabronien
     //robienie sasiedztwa
