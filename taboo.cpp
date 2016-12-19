@@ -269,7 +269,7 @@ void taboo::InitialSolution()
 
 
     }
-
+}
 
 
 
