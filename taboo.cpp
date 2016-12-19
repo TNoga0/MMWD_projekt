@@ -42,9 +42,9 @@ void taboo:: oblicz_zaladowanie(int **wynik) //oblicza załadowanie dla każdego
 }
 									 
 void taboo:: oblicz_ladunek(int **wynik)
-									 {
-										 
-									 }
+{
+		
+}
   
   
 int taboo:: ObliczFCelu(int **rozw)
@@ -56,20 +56,73 @@ int taboo:: ObliczFCelu(int **rozw)
 }
 
 
-int taboo:: sprawdz_dopuszczalnosc(int ** rozw)
+int taboo:: sprawdz_dopuszczalnosc(int ** rozw) 
 {
+	int ** tmp_przewozowa;
+	tmp_przewozowa = lista_przewozowa; //pewnie trzeba będzie elemwnt-wise przekopiować
     int dist_plane1;
     int dist_plane2;
     int dist_plane3;
-    
+    int zapelnienie[3]; //jak bardzo sumarycznie zapelniony jest dany samolot w danej iteracji;
+	
+	for(int i=1;i<8;i++)
+	{
+	ladunek_samolotu[0][rozw[0][i]-1] = lista przewozowa[(rozw[0][i-1])-1)][(rozw[0][i])-1];
+	
+	zapelnienie[0]=zapelnienie[0]+ladunek_samolotu[0][rozw[0][i]];
+	
+		if(zapelnienie[0]>=25)
+		{
+			tmp=zapelnienie[0]-25;
+			lista przewozowa[(rozw[0][i-1])-1)][(rozw[0][i])-1] = lista przewozowa[(rozw[0][i-1])-1)][(rozw[0][i])-1]+tmp;
+			ladunek_samolotu[0][rozw[0][i]-1] = ladunek_samolotu[0][rozw[0][i]-1]-tmp;
+			i=8;
+		}
+	}
+	
+	for(int j=0;j<8;j++)
+	{
+	ladunek_samolotu[1][rozw[1][j]-1] = lista przewozowa[(rozw[1][j-1])-1)][(rozw[1][j])-1];
+	
+	zapelnienie[1]=zapelnienie[1]+ladunek_samolotu[1][rozw[1][j]];
+		
+		if(zapelnienie[1]>=25)
+		{
+			tmp=zapelnienie[1]-25;
+			lista przewozowa[(rozw[1][j-1])-1)][(rozw[1][j])-1] = lista przewozowa[(rozw[1][j-1])-1)][(rozw[1][j])-1]+tmp;
+			ladunek_samolotu[1][rozw[1][j]-1] = ladunek_samolotu[1][rozw[1][j]-1]-tmp;
+			j=8;
+		}
+	}
+	
+	for(int k=0;k<8;k++)
+	{
+	ladunek_samolotu[2][rozw[2][k]-1] = lista przewozowa[(rozw[2][k-1])-1)][(rozw[2][k])-1];
+	zapelnienie[2]=zapelnienie[2]+ladunek_samolotu[2][rozw[2][k]];
+		if(zapelnienie[2]>=25)
+		{
+			tmp=zapelnienie[2]-25;
+			lista przewozowa[(rozw[2][k-1])-1)][(rozw[2][k])-1] = lista przewozowa[(rozw[2][k-1])-1)][(rozw[2][k])-1]+tmp;
+			ladunek_samolotu[2][rozw[2][k]-1] = ladunek_samolotu[2][rozw[2][k]-1]-tmp;
+			k=8;
+		}
+		
+	}
+	
+	//-------------------------------------------------- po pierwsze jiteracji
     for(int k=0;k<n_wyniku-2;k++)
     {
         dist_plane1 = odleglosci[rozw[0][k]][rozw[0][k+1]];
         dist_plane2 = odleglosci[rozw[1][k]][rozw[1][k+1]];
         dist_plane3 = odleglosci[rozw[2][k]][rozw[2][k+1]];
-        if(dist_plane1>dist_plane2 && dist_plane1>dist_plane3 && dist_plane2>dist_plane3)
+        if(dist_plane1<=dist_plane2 && dist_plane1<=dist_plane3 && dist_plane2<=dist_plane3) //inaczej to będzie //sprawedzanie który doleci 1 na miejsce
 	{
-			
+		//rozładunek
+		ladunek_samolotu[0][rozw[0][k]]=0; 
+		ladunek_samolotu[1][rozw[1][k]]=0;
+		ladunek_samolotu[2][rozw[2][k]]=0;
+		//załadunek
+		
 		
 	}
     
