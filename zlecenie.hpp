@@ -22,6 +22,7 @@ public:
     std:: string plikCzasy,std:: string plikOplata, int rozmiarTabl);
     zlecenie(int n, int maxliczba,int ileSamolotow);  //wczytanie losowe
     zlecenie(int n, int ileSamolotow);  //wczytanie pustej listy
+    friend class taboo;
 };
 
 
