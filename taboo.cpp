@@ -67,29 +67,29 @@ int taboo:: sprawdz_dopuszczalnosc(int ** rozw)
 	
 	for(int i=1;i<8;i++)
 	{
-	ladunek_samolotu[0][rozw[0][i]-1] = lista przewozowa[(rozw[0][i-1])-1)][(rozw[0][i])-1];
+	ladunek_samolotu[0][rozw[0][i]-1] = tmp_przewozowa[(rozw[0][i-1])-1)][(rozw[0][i])-1]; //wrzucam paczki do pierwszego lotniska w kolejności
 	
-	zapelnienie[0]=zapelnienie[0]+ladunek_samolotu[0][rozw[0][i]];
+	zapelnienie[0]=zapelnienie[0]+ladunek_samolotu[0][rozw[0][i]]; //dorzucam do sumarycznego zapełnienia ilość paczek
 	
 		if(zapelnienie[0]>=25)
 		{
-			tmp=zapelnienie[0]-25;
-			lista przewozowa[(rozw[0][i-1])-1)][(rozw[0][i])-1] = lista przewozowa[(rozw[0][i-1])-1)][(rozw[0][i])-1]+tmp;
-			ladunek_samolotu[0][rozw[0][i]-1] = ladunek_samolotu[0][rozw[0][i]-1]-tmp;
+			tmp=zapelnienie[0]-25; //tmp żeby było wiadomo ile ponad stan odjąć
+			tmp_przewozowa[(rozw[0][i-1])-1)][(rozw[0][i])-1] = tmp_przewozowa[(rozw[0][i-1])-1)][(rozw[0][i])-1]+tmp; //dodaję do przewozowej
+			ladunek_samolotu[0][rozw[0][i]-1] = ladunek_samolotu[0][rozw[0][i]-1]-tmp; //odejmuję z zapełnienia w danej iteracji od tego miejsca gdzie się przepełniło
 			i=8;
 		}
 	}
 	
 	for(int j=0;j<8;j++)
 	{
-	ladunek_samolotu[1][rozw[1][j]-1] = lista przewozowa[(rozw[1][j-1])-1)][(rozw[1][j])-1];
+	ladunek_samolotu[1][rozw[1][j]-1] = tmp_przewozowa[(rozw[1][j-1])-1)][(rozw[1][j])-1];
 	
 	zapelnienie[1]=zapelnienie[1]+ladunek_samolotu[1][rozw[1][j]];
 		
 		if(zapelnienie[1]>=25)
 		{
 			tmp=zapelnienie[1]-25;
-			lista przewozowa[(rozw[1][j-1])-1)][(rozw[1][j])-1] = lista przewozowa[(rozw[1][j-1])-1)][(rozw[1][j])-1]+tmp;
+			tmp_przewozowa[(rozw[1][j-1])-1)][(rozw[1][j])-1] = tmp_przewozowa[(rozw[1][j-1])-1)][(rozw[1][j])-1]+tmp;
 			ladunek_samolotu[1][rozw[1][j]-1] = ladunek_samolotu[1][rozw[1][j]-1]-tmp;
 			j=8;
 		}
@@ -97,12 +97,12 @@ int taboo:: sprawdz_dopuszczalnosc(int ** rozw)
 	
 	for(int k=0;k<8;k++)
 	{
-	ladunek_samolotu[2][rozw[2][k]-1] = lista przewozowa[(rozw[2][k-1])-1)][(rozw[2][k])-1];
+	ladunek_samolotu[2][rozw[2][k]-1] = tmp_przewozowa[(rozw[2][k-1])-1)][(rozw[2][k])-1];
 	zapelnienie[2]=zapelnienie[2]+ladunek_samolotu[2][rozw[2][k]];
 		if(zapelnienie[2]>=25)
 		{
 			tmp=zapelnienie[2]-25;
-			lista przewozowa[(rozw[2][k-1])-1)][(rozw[2][k])-1] = lista przewozowa[(rozw[2][k-1])-1)][(rozw[2][k])-1]+tmp;
+			tmp_przewozowa[(rozw[2][k-1])-1)][(rozw[2][k])-1] = tmp_przewozowa[(rozw[2][k-1])-1)][(rozw[2][k])-1]+tmp;
 			ladunek_samolotu[2][rozw[2][k]-1] = ladunek_samolotu[2][rozw[2][k]-1]-tmp;
 			k=8;
 		}
