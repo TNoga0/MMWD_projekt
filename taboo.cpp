@@ -4,6 +4,7 @@
 #include <cstdlib>
 #include <ctime>
 #include "taboo.hpp"
+#define ladownosc 25
 
 taboo:: taboo()
 {
@@ -148,7 +149,7 @@ void taboo::InitialSolution()
     //duza petla
     while(czyNiePuste())
     {
-        while((wziete<3*ladownosc)&&czyNiePuste())
+        while((wziete1<3*ladownosc)&&czyNiePuste())
         {
             while(wziete<ladownosc)   //1 samolot
             {
