@@ -20,7 +20,10 @@ private:
 public:
     taboo();
     ~taboo();
-    int InitialSolution();  //dałem int bo będzie zwracać ilość kolumn wektora rozwiązań
+    void InitialSolution();
+    bool czyNiePuste();
+    void resizeWynik(int n);
+
     int ObliczFCelu(int **rozw);  //liczy na podstawie danych z tabel i z wyniku <- dla kazdego rozwiazania, nie wiem czy dobrze wklepane jako arg
     void showZabronienia();
     void showWynik();
