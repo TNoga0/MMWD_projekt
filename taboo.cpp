@@ -38,8 +38,13 @@ void taboo:: oblicz_zaladowanie(int **wynik) //oblicza załadowanie dla każdego
       {
       zaladowanie_samolotu[w][k]=zaladowanie_samolotu[w][k-1]+lista_przewozowa[wynik[w][k]-1][wynik[w][k+1]-1];
       }
-       if(ladunek_samolotu[w][wynik[w][k]]//.......
+       if(ladunek_samolotu[w][(wynik[w][k])]!=0) zaladowanie_samolotu[w][k
 }
+									 
+void taboo:: oblicz_ladunek(int **wynik)
+									 {
+										 
+									 }
   
   
 int taboo:: ObliczFCelu(int **rozw)
@@ -63,7 +68,10 @@ int taboo:: sprawdz_dopuszczalnosc(int ** rozw)
         dist_plane2 = odleglosci[rozw[1][k]][rozw[1][k+1]];
         dist_plane3 = odleglosci[rozw[2][k]][rozw[2][k+1]];
         if(dist_plane1>dist_plane2 && dist_plane1>dist_plane3 && dist_plane2>dist_plane3)
-            
+	{
+			
+		
+	}
     
     }
 }
