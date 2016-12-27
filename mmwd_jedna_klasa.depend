@@ -1,0 +1,15 @@
+# depslib dependency file v1.0
+1482854391 source:d:\mmwd\mmwd — kopia\main.cpp
+	<iostream>
+	"zlecenie.hpp"
+
+1482176643 d:\mmwd\mmwd — kopia\zlecenie.hpp
+
+1482856560 source:d:\mmwd\mmwd — kopia\zlecenie.cpp
+	<iostream>
+	<fstream>
+	<string>
+	<cstdlib>
+	<ctime>
+	"zlecenie.hpp"
+

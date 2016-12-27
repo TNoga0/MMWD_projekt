@@ -1,6 +1,6 @@
 #include <iostream>
 #include "zlecenie.hpp"
-#include "zlecenie.cpp"
+
 
 
 int main()
@@ -13,6 +13,8 @@ int main()
     k=firma1.WczytajzPliku("lista.txt","tankowanie.txt","odleglosc.txt","czasy.txt","oplata.txt",8);
        if(k!=0)
         firma1.show_lista();
+         //firma1.test();
+        firma1.InitialSolution();
     firma1.usun();
 
     return 0;
