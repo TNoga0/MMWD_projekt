@@ -333,9 +333,9 @@ void zlecenie::resizeWynik(int n)
 
         for(int j=0;j<(n-1);j++)
         {
-            nowa[i][j]=tmp_wynik[i][j]; //rzuca sie o to, jakby nie wiedzial co to tmp_wynik[0][0]
+            nowa[i][j]=tmp_wynik[i][j]; 
         }
-    nowa[i][n_wyniku]=0;
+    nowa[i][n-1]=0;
     std::cout<<"dudud";
     }
 
@@ -344,9 +344,7 @@ void zlecenie::resizeWynik(int n)
     delete [] tmp_wynik;
     tmp_wynik=nowa;
     n_wyniku=n;
-    for (int i = 0; i<3; i++)
-        delete [] nowa[i];
-    delete [] nowa;
+   
 }
 
 void zlecenie::resizeZaladowanie(int n)
@@ -686,7 +684,7 @@ void zlecenie::InitialSolution()
 
 }
 
-
+/*
 int zlecenie:: sprawdz_dopuszczalnosc(int ** rozw)
 {
 	int ** tmp_przewozowa;
@@ -1085,3 +1083,4 @@ int zlecenie:: sprawdz_dopuszczalnosc(int ** rozw)
 	return 1;
 }
 
+*/
