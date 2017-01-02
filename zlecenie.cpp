@@ -1084,3 +1084,18 @@ int zlecenie:: sprawdz_dopuszczalnosc(int ** rozw)
 }
 
 */
+
+void zlecenie:: wpisz_zabronienia(int iteracja)
+{
+    for(int z=0; z<3;z++)	
+	for(int w =0;w<n_wyniku;w++) //? drugi warunek
+		for(int k=0;k<n_wyniku;k++)
+		{
+			if(zabronienia[w][k][z] != 0)
+			zabronienia[w][k][z] = zabronienia[w][k][z] + 1;	
+			if(zabronienia[w][k][z] > 3) //ilość ile mogą se posiedzieć tabu
+				zabronienia[w][k][z] = 0;
+		}
+	//proponuję wpisywać do tablicy w funkcji z sąsiedztwem. Gdy nastąpi wybór wtedy dopisujemy tutaj. Elo.
+}
+
