@@ -15,7 +15,7 @@ private:
     int ile_samolotow;
     int *oplata_lotniskowa;
     int n_zabr;
-    int **zabronienia;   // to bedzie tablela (symetryczna) gdzie damy np blokade na 3 iteracje
+    int ***zabronienia;   // to bedzie tablela (symetryczna) gdzie damy np blokade na 3 iteracje, 3 wymiary samolotxnwynikuxn_wyniku
     int n_wyniku;
     int **best_wynik;
     int **tmp_wynik;
