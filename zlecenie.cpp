@@ -321,7 +321,7 @@ void zlecenie:: oblicz_zaladowanie(int **wynik) //oblicza za³adowanie dla ka¿d
 void zlecenie::resizeWynik(int n)
 {
 
-    int **nowa = new int * [n];
+    int **nowa = new int * [3];
     for (int i = 0; i<3; i++)
     {
 
@@ -331,25 +331,27 @@ void zlecenie::resizeWynik(int n)
     for(int i=0;i<3;i++)
     {
 
-        for(int j=0;j<(n-1);j++)
+        for(int j=0;j<n-1;j++)
         {
-            nowa[i][j]=tmp_wynik[i][j]; 
+            nowa[i][j]=tmp_wynik[i][j];
         }
-    nowa[i][n-1]=0;
-    std::cout<<"dudud";
-    }
 
+    nowa[i][n-1]=0;
+
+    }
     for (int i = 0; i<3; i++)
         delete [] tmp_wynik[i];
     delete [] tmp_wynik;
     tmp_wynik=nowa;
-    n_wyniku=n;
-   
+    //n_wyniku=n_wyniku+1;
+    //delete [] nowa;
+    std::cout<<"kurwa\n";
+
 }
 
 void zlecenie::resizeZaladowanie(int n)
 {
-    int **nowa = new int * [n];
+    int **nowa = new int * [3];
     for (int i = 0; i<3; i++)
     {
 
@@ -359,12 +361,13 @@ void zlecenie::resizeZaladowanie(int n)
     {
         for(int j=0;j<n-1;j++)
             nowa[i][j]=zaladowanie_samolotu[i][j];
-            nowa[i][n-1]=zaladowanie_samolotu[i][n-1];
+        nowa[i][n-1]=zaladowanie_samolotu[i][n-2];
     }
     for (int i = 0; i<3; i++)
         delete [] zaladowanie_samolotu[i];
     delete [] zaladowanie_samolotu;
     zaladowanie_samolotu=nowa;
+    //delete [] nowa;
 
 }
 
@@ -472,13 +475,13 @@ void zlecenie::InitialSolution()
     int odkad3=0;
 
     //duza petla
-    while(czyNiePuste(lista_przewozowa))
+  while(czyNiePuste(lista_przewozowa))
     {
 
         while(((zaladowanie_samolotu[0][ktoraiteracja]+zaladowanie_samolotu[1][ktoraiteracja]+zaladowanie_samolotu[2][ktoraiteracja])<75)&&czyNiePuste(lista_przewozowa))
         {
 
-            while((zaladowanie_samolotu[0][ktoraiteracja])<25)   //1 samolot
+            while((zaladowanie_samolotu[0][ktoraiteracja])<25&&czyNiePuste(lista_przewozowa))   //1 samolot
             {
 
                 for(int i =odkad1; i<rozmiar; i++)
@@ -518,7 +521,7 @@ void zlecenie::InitialSolution()
                 }
             }
 
-            while((zaladowanie_samolotu[1][ktoraiteracja])<25)   //2 samolot
+            while((zaladowanie_samolotu[1][ktoraiteracja])<25&&czyNiePuste(lista_przewozowa))   //2 samolot
             {
 
                 for(int i =odkad2; i<rozmiar; i++)
@@ -556,7 +559,7 @@ void zlecenie::InitialSolution()
             }
 
 
-            while((zaladowanie_samolotu[2][ktoraiteracja])<25)   //3 samolot
+            while((zaladowanie_samolotu[2][ktoraiteracja])<25&&czyNiePuste(lista_przewozowa))   //3 samolot
             {
                 for(int i =odkad3; i<rozmiar; i++)
                 {
@@ -631,16 +634,48 @@ void zlecenie::InitialSolution()
         else{
             tmp_wynik[2][n_wyniku-1]=0;
         }
-
+         std::cout<<"\nwynik:\n";
+        for (int i = 0; i<3; i++)
+        {
+            for(int j=0;j<n_wyniku;j++)
+            std::cout<<tmp_wynik[i][j]<<" ";
+            std::cout<<"\n";
+        }
+         std::cout<<"\nzalado:\n";
+        for (int i = 0; i<3; i++)
+        {
+            for(int j=0;j<n_wyniku;j++)
+            std::cout<<zaladowanie_samolotu[i][j]<<" ";
+            std::cout<<"\n";
+        }
+        std::cout<<"\ndupa\n";
         resizeWynik(n_wyniku+1);
-        std::cout<<"dupa";
-        resizeZaladowanie(n_wyniku+1);
-
-
+        n_wyniku++;
+        std::cout<<n_wyniku;
+         std::cout<<"\nwynik:\n";
+        for (int i = 0; i<3; i++)
+        {
+            for(int j=0;j<n_wyniku;j++)
+            std::cout<<tmp_wynik[i][j]<<" ";
+            std::cout<<"\n";
+        }
+        std::cout<<"\ndupa1\n";
+        resizeZaladowanie(n_wyniku);
+        std::cout<<"\nmarek to faja\n\n";
+    std::cout<<"Lista Przewozowa: \n";
+    for(int i =0;i<rozmiar;i++)
+    {
+        for(int j=0;j<rozmiar;j++)
+            std::cout<<lista_przewozowa[i][j]<<" ";
+        std::cout<<"\n";
+    }
+     std::cout<<"\n\n";
+     std::cout<<odkad3;
 
 
 
     }
+    std::cout<<"po zalad";
 
     while(czyNiePuste(temp1))
         {
@@ -1082,20 +1117,5 @@ int zlecenie:: sprawdz_dopuszczalnosc(int ** rozw)
 
 	return 1;
 }
-
 */
-
-void zlecenie:: wpisz_zabronienia(int iteracja)
-{
-    for(int z=0; z<3;z++)	
-	for(int w =0;w<n_wyniku;w++) //? drugi warunek
-		for(int k=0;k<n_wyniku;k++)
-		{
-			if(zabronienia[w][k][z] != 0)
-			zabronienia[w][k][z] = zabronienia[w][k][z] + 1;	
-			if(zabronienia[w][k][z] > 3) //ilość ile mogą se posiedzieć tabu
-				zabronienia[w][k][z] = 0;
-		}
-	//proponuję wpisywać do tablicy w funkcji z sąsiedztwem. Gdy nastąpi wybór wtedy dopisujemy tutaj. Elo.
-}
 
