@@ -842,12 +842,12 @@ int tymczasowy1 = tymczasowy;
 
      	}
         std::cout<<"\n";
-
+	this->n_wyniku = biggest;
 
     for (int i = 0; i<3; i++)
         delete [] tmp_wynik[i];
     delete [] tmp_wynik;
-n_wyniku = biggest;
+
 
 }
 
