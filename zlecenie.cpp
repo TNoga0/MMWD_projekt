@@ -495,7 +495,7 @@ cnt=0;
        // while(((zaladowanie_samolotu[0][ktoraiteracja]+zaladowanie_samolotu[1][ktoraiteracja]+zaladowanie_samolotu[2][ktoraiteracja])<75)&&czyNiePuste(lista_przewozowa))
         //{
 
-            while((zaladowanie_samolotu[0][ktoraiteracja])<25&&czyNiePuste(lista_przewozowa)&&cnt<rozmiar)   //1 samolot
+            while((zaladowanie_samolotu[0][ktoraiteracja])<25&&czyNiePuste(lista_przewozowa)&&cnt<rozmiar+1)   //1 samolot
             {
 
 
@@ -521,10 +521,11 @@ cnt=0;
                                 }
                                else
                                 {
-
+std::cout<<"   tutaj   \n";
                                  temp1[j]=temp1[j]+(lista_przewozowa[odkad1][j]-(zaladowanie_samolotu[0][ktoraiteracja]+lista_przewozowa[odkad1][j]-25));
-                                 zaladowanie_samolotu[0][ktoraiteracja]=25;
                                  lista_przewozowa[odkad1][j]=(zaladowanie_samolotu[0][ktoraiteracja]+lista_przewozowa[odkad1][j]-25);
+                                 zaladowanie_samolotu[0][ktoraiteracja]=25;
+
 
                                 }
 
@@ -535,7 +536,7 @@ cnt=0;
                 }
             }
 
-            while((zaladowanie_samolotu[1][ktoraiteracja])<25&&czyNiePuste(lista_przewozowa)&&cnt<2*rozmiar)   //2 samolot
+            while((zaladowanie_samolotu[1][ktoraiteracja])<25&&czyNiePuste(lista_przewozowa)&&cnt<2*rozmiar+2)   //2 samolot
             {
 
 
@@ -560,8 +561,9 @@ cnt=0;
                                else
                                 {
                                  temp2[j]=temp2[j]+(lista_przewozowa[odkad2][j]-(zaladowanie_samolotu[1][ktoraiteracja]+lista_przewozowa[odkad2][j]-25));
-                                 zaladowanie_samolotu[1][ktoraiteracja]=25;
                                  lista_przewozowa[odkad2][j]=(zaladowanie_samolotu[1][ktoraiteracja]+lista_przewozowa[odkad2][j]-25);
+                                 zaladowanie_samolotu[1][ktoraiteracja]=25;
+
 
                                 }
 
@@ -574,7 +576,7 @@ cnt=0;
             }
 
 
-            while((zaladowanie_samolotu[2][ktoraiteracja])<25&&czyNiePuste(lista_przewozowa)&&cnt<3*rozmiar)   //3 samolot
+            while((zaladowanie_samolotu[2][ktoraiteracja])<25&&czyNiePuste(lista_przewozowa)&&cnt<3*rozmiar+3)   //3 samolot
             {
 
 
@@ -598,8 +600,9 @@ cnt=0;
                                else
                                 {
                                  temp3[j]=temp3[j]+(lista_przewozowa[odkad3][j]-(zaladowanie_samolotu[2][ktoraiteracja]+lista_przewozowa[odkad3][j]-25));
-                                 zaladowanie_samolotu[2][ktoraiteracja]=25;
                                  lista_przewozowa[odkad3][j]=(zaladowanie_samolotu[2][ktoraiteracja]+lista_przewozowa[odkad3][j]-25);
+                                 zaladowanie_samolotu[2][ktoraiteracja]=25;
+
                                 }
 
                            }
@@ -617,6 +620,8 @@ cnt=0;
 
 
 //samolot1
+
+
 
         if(czyNiePuste(temp1))
         {
