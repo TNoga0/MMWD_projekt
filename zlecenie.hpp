@@ -15,17 +15,23 @@ private:
     int ile_samolotow;
     int *oplata_lotniskowa;
     int n_zabr;
-    int ***zabronienia;   // to bedzie tablela (symetryczna) gdzie damy np blokade na 3 iteracje, 3 wymiary samolotxnwynikuxn_wyniku
-    int n_wyniku;
-    //int **best_wynik;
+    int **zabronienia;   // to bedzie tablela (symetryczna) gdzie damy np blokade na 3 iteracje
+
+    int **best_wynik;
     int **tmp_wynik;
     int **zaladowanie_samolotu;
     int **sasiedztwo;
     int **ladunek_samolotu;
 
 public:
+int n_wyniku;
+struct element
+{
+    int dokad;
+    int czas;
+};
 
-	int **best_wynik;
+    struct element **tabu_list;
     zlecenie();
     ~zlecenie();
     void usun();
@@ -46,6 +52,8 @@ public:
     int sprawdz_dopuszczalnosc(int ** rozw);
     int maximum(int *tab);
     void test();
+    void wykonaj_sasiedztwo();
+    void generuj_tabu();
 
 };
 

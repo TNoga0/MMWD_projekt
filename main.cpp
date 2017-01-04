@@ -1,24 +1,30 @@
 #include <iostream>
 #include "zlecenie.hpp"
-
+using namespace std;
 
 
 int main()
 {
-    std::cout << "siemanko\n" << std::endl;
+    cout << "siemanko\n" <<endl;
     bool k;
     zlecenie firma1(8,7,3);
-    firma1.show_lista();
-    std::cout<<"\n\n\n";
+    //firma1.show_lista();
+    cout<<"\n\n\n";
     k=firma1.WczytajzPliku("lista.txt","tankowanie.txt","odleglosc.txt","czasy.txt","oplata.txt",8);
        if(k!=0)
         firma1.show_lista();
-         
         firma1.InitialSolution();
-        //int cosik = firma1.ObliczFCelu(firma1.best_wynik);
         firma1.test();
-        //std::cout<<cosik;
-    firma1.usun();
+      cout<<"\n";
+    firma1.generuj_tabu();
+    firma1.wykonaj_sasiedztwo();
+
+
+
+
+
+
+        firma1.usun();
 
     return 0;
 }

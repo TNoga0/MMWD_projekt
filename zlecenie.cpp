@@ -4,7 +4,7 @@
 #include <cstdlib>
 #include <ctime>
 #include "zlecenie.hpp"
-
+#define ILEITERACJI 10
 
 zlecenie:: zlecenie()
 {
@@ -312,22 +312,13 @@ bool zlecenie::WczytajzPliku(std:: string plikLista, std:: string PlikTankowanie
 
 int zlecenie:: ObliczFCelu(int **rozw)
 {
-	std::cout<<"gówno";
+	//std::cout<<"gówno";
   int temporary_result = 0;
   for(int w=0;w<3;w++)
   {
     for(int k=1;k<(n_wyniku-1);k++)
-    {
-	    if(rozw[w][k-1]==rozw[w][k])
-	    {
-		    temporary_result = temporary_result + 0;
-	    }
-	    else
-	    {
-     		 temporary_result = temporary_result + oplata_lotniskowa[(rozw[w][k-1])]+koszt_tankowania[(rozw[w][k-1])][(rozw[w][k])]+zaladowanie_samolotu[w][k-1]*odleglosci[rozw[w][k-1]][rozw[w][k]]*spalanie;
-	    }
-    }
-  }	  
+      temporary_result = temporary_result + oplata_lotniskowa[(rozw[w][k-1])]+koszt_tankowania[(rozw[w][k-1])][(rozw[w][k])]+zaladowanie_samolotu[w][k-1]*odleglosci[rozw[w][k-1]][rozw[w][k]]*spalanie;
+  }
 	return temporary_result;
 }
 
@@ -444,11 +435,14 @@ void zlecenie::test()
     	for(int k=0;k<n_wyniku;k++)
     	{
 
-    		std::cout<<best_wynik[w][k];
+    		std::cout<<best_wynik[w][k]<<" ";
 
 }
 std::cout<<"\n";
 }
+
+int cel=ObliczFCelu(best_wynik);
+std::cout<<"\n"<<cel;
 
 }
 
@@ -853,373 +847,107 @@ int tymczasowy1 = tymczasowy;
 
      	}
         std::cout<<"\n";
-	this->n_wyniku = biggest;
+this->n_wyniku = biggest;
 
-    for (int i = 0; i<3; i++)
-        delete [] tmp_wynik[i];
-    delete [] tmp_wynik;
-
+    //for (int i = 0; i<3; i++)
+   //     delete [] tmp_wynik[i];
+   // delete [] tmp_wynik;
+n_wyniku = biggest;
 
 }
 
-/*
-int zlecenie:: sprawdz_dopuszczalnosc(int ** rozw)
+void zlecenie::generuj_tabu()
 {
-	int ** tmp_przewozowa;
-	tmp_przewozowa = lista_przewozowa; //pewnie trzeba bÄdzie elemwnt-wise przekopiowaÄ
-    int dist_plane1;
-    int dist_plane2;
-    int dist_plane3;
-    int zapelnienie[3]; //jak bardzo sumarycznie zapelniony jest dany samolot w danej iteracji;
-	for(int i=1;i<n_wyniku-1;i++) //nie wiem czy drugi warunek ok
-	{
-	ladunek_samolotu[0][rozw[0][i]-1] = tmp_przewozowa[(rozw[0][0])-1)][(rozw[0][i])-1]; //wrzucam paczki do pierwszego lotniska w kolejnoĹci. Koniecznie pierwsza wspĂłĹrzÄdna listy przewozowej staĹa bo biorÄ tylko z jednego lotniska
-	tmp_przewozowa[(rozw[0][0])-1)][(rozw[0][i])-1] = 0; //zerujÄ pole listy przewozowej, bo na poczÄtek wrzucam do samolotu wszystkie paczki do danego lotniska
-	zapelnienie[0]=zapelnienie[0]+ladunek_samolotu[0][rozw[0][i]-1]; //dorzucam do sumarycznego zapeĹnienia iloĹÄ paczek
-		if(zapelnienie[0]>=25)
-		{
-			tmp=zapelnienie[0]-25; //tmp Ĺźeby byĹo wiadomo ile ponad stan odjÄÄ
-			tmp_przewozowa[(rozw[0][0])-1)][(rozw[0][i])-1] = tmp_przewozowa[(rozw[0][0])-1)][(rozw[0][i])-1]+tmp; //dodajÄ do przewozowej
-			ladunek_samolotu[0][rozw[0][i]-1] = ladunek_samolotu[0][rozw[0][i]-1]-tmp; //odejmujÄ z zapeĹnienia w danej iteracji od tego miejsca gdzie siÄ przepeĹniĹo
-			i=n_wyniku-1;//Ĺźeby wyjĹÄ z pÄtli
-		}
-	}
-	for(int j=1;j<n_wyniku-1;j++)
-	{
-	ladunek_samolotu[1][rozw[1][j]-1] = tmp_przewozowa[(rozw[1][0])-1][(rozw[1][j])-1];
-	tmp_przewozowa[(rozw[1][0])-1)][(rozw[1][j])-1] = 0;
-	zapelnienie[1]=zapelnienie[1]+ladunek_samolotu[1][rozw[1][j]];
-		if(zapelnienie[1]>=25)
-		{
-			tmp=zapelnienie[1]-25;
-			tmp_przewozowa[(rozw[1][0])-1)][(rozw[1][j])-1] = tmp_przewozowa[(rozw[1][0])-1)][(rozw[1][j])-1]+tmp;
-			ladunek_samolotu[1][rozw[1][j]-1] = ladunek_samolotu[1][rozw[1][j]-1]-tmp;
-			j=n_wyniku-1;
-		}
-	}
-	for(int k=1;k<n_wyniku-1;k++)
-	{
-	ladunek_samolotu[2][rozw[2][k]-1] = tmp_przewozowa[(rozw[2][0])-1][(rozw[2][k])-1];
-	tmp_przewozowa[(rozw[2][0])-1)][(rozw[2][k])-1] = 0;
-	zapelnienie[2]=zapelnienie[2]+ladunek_samolotu[2][rozw[2][k]];
-		if(zapelnienie[2]>=25)
-		{
-			tmp=zapelnienie[2]-25;
-			tmp_przewozowa[(rozw[2][0])-1)][(rozw[2][k])-1] = tmp_przewozowa[(rozw[2][0])-1)][(rozw[2][k])-1]+tmp;
-			ladunek_samolotu[2][rozw[2][k]-1] = ladunek_samolotu[2][rozw[2][k]-1]-tmp;
-			k=n_wyniku-1;
-		}
-	}
-	//-------------------------------------------------- po pierwsze jiteracji
-    for(int k=0;k<n_wyniku-2;k++)
+    tabu_list = new element * [3];
+    for (int i = 0; i<3; i++)
     {
-        dist_plane1 = odleglosci[rozw[0][k]][rozw[0][k+1]]; //odlegĹoĹÄ do kolejnego lotniska 1 samolotu, ma to na celu determinowanie ktĂłry doleci pierwszy jeĹli lecÄ na to samo lotnisko
-        dist_plane2 = odleglosci[rozw[1][k]][rozw[1][k+1]];
-        dist_plane3 = odleglosci[rozw[2][k]][rozw[2][k+1]];
-        if(dist_plane1<=dist_plane2 && dist_plane1<=dist_plane3) //inaczej to bÄdzie //sprawedzanie ktĂłry doleci 1 na miejsce
-	{
-		//rozĹadunek samolotu (pierwszego)
-		ladunek_samolotu[0][rozw[0][k+1]]=0;
-		//zaĹadunek pierwszego samolotu
-		if(zapelnienie[0]<25) //jesli miejsce w samolocie to ta sama funkcja zapeĹniajÄca co dla 1 iteracji, ale zwiÄkszone i
-		{
-			for(i=k+2;i<n_wyniku-1;i++)
-			{
-				ladunek_samolotu[0][rozw[0][i]-1] = tmp_przewozowa[(rozw[0][k+1])-1][(rozw[0][i])-1]; //wrzucam paczki do pierwszego lotniska w kolejnoĹci. Koniecznie pierwsza wspĂłĹrzÄdna listy przewozowej staĹa bo biorÄ tylko z jednego lotniska
-				tmp_przewozowa[(rozw[0][k+1])-1)][(rozw[0][i])-1] = 0; //zerujÄ pole listy przewozowej, bo na poczÄtek wrzucam do samolotu wszystkie paczki do danego lotniska
-				zapelnienie[0]=zapelnienie[0]+ladunek_samolotu[0][rozw[0][i]-1]; //dorzucam do sumarycznego zapeĹnienia iloĹÄ paczek
-				if(zapelnienie[0]>=25)
-				{
-					tmp=zapelnienie[0]-25; //tmp Ĺźeby byĹo wiadomo ile ponad stan odjÄÄ
-					tmp_przewozowa[(rozw[0][k+1])-1)][(rozw[0][i])-1] = tmp_przewozowa[(rozw[0][k+1])-1)][(rozw[0][i])-1]+tmp; //dodajÄ do przewozowej
-					ladunek_samolotu[0][rozw[0][i]-1] = ladunek_samolotu[0][rozw[0][i]-1]-tmp; //odejmujÄ z zapeĹnienia w danej iteracji od tego miejsca gdzie siÄ przepeĹniĹo
-					i=n_wyniku-1;//Ĺźeby wyjĹÄ z pÄtli
-				}
-			}
-		}
-		if(dist_plane2<=dist_plane3)
-		{
-			ladunek_samolotu[1][rozw[1][k+1]]=0;
-			if(zapelnienie[1]<25) //jesli miejsce w samolocie to ta sama funkcja zapeĹniajÄca co dla 1 iteracji, ale zwiÄkszone i
-			{
-			for(i=k+2;i<n_wyniku-1;i++)
-			{
-				ladunek_samolotu[1][rozw[1][i]-1] = tmp_przewozowa[(rozw[1][k+1])-1][(rozw[1][i])-1]; //wrzucam paczki do pierwszego lotniska w kolejnoĹci. Koniecznie pierwsza wspĂłĹrzÄdna listy przewozowej staĹa bo biorÄ tylko z jednego lotniska
-				tmp_przewozowa[(rozw[1][k+1])-1)][(rozw[1][i])-1] = 0; //zerujÄ pole listy przewozowej, bo na poczÄtek wrzucam do samolotu wszystkie paczki do danego lotniska
-				zapelnienie[1]=zapelnienie[1]+ladunek_samolotu[1][rozw[1][i]-1]; //dorzucam do sumarycznego zapeĹnienia iloĹÄ paczek
-				if(zapelnienie[1]>=25)
-				{
-					tmp=zapelnienie[1]-25; //tmp Ĺźeby byĹo wiadomo ile ponad stan odjÄÄ
-					tmp_przewozowa[(rozw[1][k+1])-1)][(rozw[1][i])-1] = tmp_przewozowa[(rozw[1][k+1])-1)][(rozw[1][i])-1]+tmp; //dodajÄ do przewozowej
-					ladunek_samolotu[1][rozw[1][i]-1] = ladunek_samolotu[1][rozw[1][i]-1]-tmp; //odejmujÄ z zapeĹnienia w danej iteracji od tego miejsca gdzie siÄ przepeĹniĹo
-					i=n_wyniku-1;//Ĺźeby wyjĹÄ z pÄtli
-				}
-			}
-			}
-			//oprozniamy trzeci samolot
-			ladunek_samolotu[2][rozw[2][k+1]]=0;
-			if(zapelnienie[2]<25) //jesli miejsce w samolocie to ta sama funkcja zapeĹniajÄca co dla 1 iteracji, ale zwiÄkszone i
-			{
-			for(i=k+2;i<n_wyniku-1;i++)
-			{
-				ladunek_samolotu[2][rozw[2][i]-1] = tmp_przewozowa[(rozw[2][k+1])-1][(rozw[2][i])-1]; //wrzucam paczki do pierwszego lotniska w kolejnoĹci. Koniecznie pierwsza wspĂłĹrzÄdna listy przewozowej staĹa bo biorÄ tylko z jednego lotniska
-				tmp_przewozowa[(rozw[2][k+1])-1)][(rozw[2][i])-1] = 0; //zerujÄ pole listy przewozowej, bo na poczÄtek wrzucam do samolotu wszystkie paczki do danego lotniska
-				zapelnienie[2]=zapelnienie[2]+ladunek_samolotu[2][rozw[2][i]-1]; //dorzucam do sumarycznego zapeĹnienia iloĹÄ paczek
-				if(zapelnienie[2]>=25)
-				{
-					tmp=zapelnienie[2]-25; //tmp Ĺźeby byĹo wiadomo ile ponad stan odjÄÄ
-					tmp_przewozowa[(rozw[2][k+1])-1)][(rozw[2][i])-1] = tmp_przewozowa[(rozw[2][k+1])-1)][(rozw[2][i])-1]+tmp; //dodajÄ do przewozowej
-					ladunek_samolotu[2][rozw[2][i]-1] = ladunek_samolotu[2][rozw[2][i]-1]-tmp; //odejmujÄ z zapeĹnienia w danej iteracji od tego miejsca gdzie siÄ przepeĹniĹo
-					i=n_wyniku-1;//Ĺźeby wyjĹÄ z pÄtli
-				}
-			}
-			}
-		} //sprawdziÄ czy dobra iloĹÄ klamerek, bo coĹ SIÄ MOGĹO POPIERDOLIÄ
-		else
-		{
-			//oprozniamy trzeci samolot
-			ladunek_samolotu[2][rozw[2][k+1]]=0;
-			if(zapelnienie[2]<25) //jesli miejsce w samolocie to ta sama funkcja zapeĹniajÄca co dla 1 iteracji, ale zwiÄkszone i
-			{
-			for(i=k+2;i<n_wyniku-1;i++)
-			{
-				ladunek_samolotu[2][rozw[2][i]-1] = tmp_przewozowa[(rozw[2][k+1])-1][(rozw[2][i])-1]; //wrzucam paczki do pierwszego lotniska w kolejnoĹci. Koniecznie pierwsza wspĂłĹrzÄdna listy przewozowej staĹa bo biorÄ tylko z jednego lotniska
-				tmp_przewozowa[(rozw[2][k+1])-1)][(rozw[2][i])-1] = 0; //zerujÄ pole listy przewozowej, bo na poczÄtek wrzucam do samolotu wszystkie paczki do danego lotniska
-				zapelnienie[2]=zapelnienie[2]+ladunek_samolotu[2][rozw[2][i]-1]; //dorzucam do sumarycznego zapeĹnienia iloĹÄ paczek
-				if(zapelnienie[2]>=25)
-				{
-					tmp=zapelnienie[2]-25; //tmp Ĺźeby byĹo wiadomo ile ponad stan odjÄÄ
-					tmp_przewozowa[(rozw[2][k+1])-1)][(rozw[2][i])-1] = tmp_przewozowa[(rozw[2][k+1])-1)][(rozw[2][i])-1]+tmp; //dodajÄ do przewozowej
-					ladunek_samolotu[2][rozw[2][i]-1] = ladunek_samolotu[2][rozw[2][i]-1]-tmp; //odejmujÄ z zapeĹnienia w danej iteracji od tego miejsca gdzie siÄ przepeĹniĹo
-					i=n_wyniku-1;//Ĺźeby wyjĹÄ z pÄtli
-				}
-			}
-			}
-			ladunek_samolotu[1][rozw[1][k+1]]=0;
-			if(zapelnienie[1]<25) //jesli miejsce w samolocie to ta sama funkcja zapeĹniajÄca co dla 1 iteracji, ale zwiÄkszone i
-			{
-			for(i=k+2;i<n_wyniku-1;i++)
-			{
-				ladunek_samolotu[1][rozw[1][i]-1] = tmp_przewozowa[(rozw[1][k+1])-1][(rozw[1][i])-1]; //wrzucam paczki do pierwszego lotniska w kolejnoĹci. Koniecznie pierwsza wspĂłĹrzÄdna listy przewozowej staĹa bo biorÄ tylko z jednego lotniska
-				tmp_przewozowa[(rozw[1][k+1])-1)][(rozw[1][i])-1] = 0; //zerujÄ pole listy przewozowej, bo na poczÄtek wrzucam do samolotu wszystkie paczki do danego lotniska
-				zapelnienie[1]=zapelnienie[1]+ladunek_samolotu[1][rozw[1][i]-1]; //dorzucam do sumarycznego zapeĹnienia iloĹÄ paczek
-				if(zapelnienie[1]>=25)
-				{
-					tmp=zapelnienie[1]-25; //tmp Ĺźeby byĹo wiadomo ile ponad stan odjÄÄ
-					tmp_przewozowa[(rozw[1][k+1])-1)][(rozw[1][i])-1] = tmp_przewozowa[(rozw[1][k+1])-1)][(rozw[1][i])-1]+tmp; //dodajÄ do przewozowej
-					ladunek_samolotu[1][rozw[1][i]-1] = ladunek_samolotu[1][rozw[1][i]-1]-tmp; //odejmujÄ z zapeĹnienia w danej iteracji od tego miejsca gdzie siÄ przepeĹniĹo
-					i=n_wyniku-1;//Ĺźeby wyjĹÄ z pÄtli
-				}
-			}
-			}
-		}
-	}
-    	else if(dist_plane2<=dist_plane1 && dist_plane2<=dist_plane3)
-	{
-	    ladunek_samolotu[1][rozw[1][k+1]]=0;
-		if(zapelnienie[1]<25) //jesli miejsce w samolocie to ta sama funkcja zapeĹniajÄca co dla 1 iteracji, ale zwiÄkszone i
-		{
-			for(i=k+2;i<n_wyniku-1;i++)
-			{
-				ladunek_samolotu[1][rozw[1][i]-1] = tmp_przewozowa[(rozw[1][k+1])-1][(rozw[1][i])-1]; //wrzucam paczki do pierwszego lotniska w kolejnoĹci. Koniecznie pierwsza wspĂłĹrzÄdna listy przewozowej staĹa bo biorÄ tylko z jednego lotniska
-				tmp_przewozowa[(rozw[1][k+1])-1)][(rozw[1][i])-1] = 0; //zerujÄ pole listy przewozowej, bo na poczÄtek wrzucam do samolotu wszystkie paczki do danego lotniska
-				zapelnienie[1]=zapelnienie[1]+ladunek_samolotu[1][rozw[1][i]-1]; //dorzucam do sumarycznego zapeĹnienia iloĹÄ paczek
-				if(zapelnienie[1]>=25)
-				{
-					tmp=zapelnienie[1]-25; //tmp Ĺźeby byĹo wiadomo ile ponad stan odjÄÄ
-					tmp_przewozowa[(rozw[1][k+1])-1)][(rozw[1][i])-1] = tmp_przewozowa[(rozw[1][k+1])-1)][(rozw[1][i])-1]+tmp; //dodajÄ do przewozowej
-					ladunek_samolotu[1][rozw[1][i]-1] = ladunek_samolotu[1][rozw[1][i]-1]-tmp; //odejmujÄ z zapeĹnienia w danej iteracji od tego miejsca gdzie siÄ przepeĹniĹo
-					i=n_wyniku-1;//Ĺźeby wyjĹÄ z pÄtli
-				}
-			}
-		}
-	    if(dist_plane1<=dist_plane3)
-	    {
-		    //rozĹadunek samolotu (pierwszego)
-		ladunek_samolotu[0][rozw[0][k+1]]=0;
-		//zaĹadunek pierwszego samolotu
-		if(zapelnienie[0]<25) //jesli miejsce w samolocie to ta sama funkcja zapeĹniajÄca co dla 1 iteracji, ale zwiÄkszone i
-		{
-			for(i=k+2;i<n_wyniku-1;i++)
-			{
-				ladunek_samolotu[0][rozw[0][i]-1] = tmp_przewozowa[(rozw[0][k+1])-1][(rozw[0][i])-1]; //wrzucam paczki do pierwszego lotniska w kolejnoĹci. Koniecznie pierwsza wspĂłĹrzÄdna listy przewozowej staĹa bo biorÄ tylko z jednego lotniska
-				tmp_przewozowa[(rozw[0][k+1])-1)][(rozw[0][i])-1] = 0; //zerujÄ pole listy przewozowej, bo na poczÄtek wrzucam do samolotu wszystkie paczki do danego lotniska
-				zapelnienie[0]=zapelnienie[0]+ladunek_samolotu[0][rozw[0][i]-1]; //dorzucam do sumarycznego zapeĹnienia iloĹÄ paczek
-				if(zapelnienie[0]>=25)
-				{
-					tmp=zapelnienie[0]-25; //tmp Ĺźeby byĹo wiadomo ile ponad stan odjÄÄ
-					tmp_przewozowa[(rozw[0][k+1])-1)][(rozw[0][i])-1] = tmp_przewozowa[(rozw[0][k+1])-1)][(rozw[0][i])-1]+tmp; //dodajÄ do przewozowej
-					ladunek_samolotu[0][rozw[0][i]-1] = ladunek_samolotu[0][rozw[0][i]-1]-tmp; //odejmujÄ z zapeĹnienia w danej iteracji od tego miejsca gdzie siÄ przepeĹniĹo
-					i=n_wyniku-1;//Ĺźeby wyjĹÄ z pÄtli
-				}
-			}
-		}
-		//oprozniamy trzeci samolot
-			ladunek_samolotu[2][rozw[2][k+1]]=0;
-			if(zapelnienie[2]<25) //jesli miejsce w samolocie to ta sama funkcja zapeĹniajÄca co dla 1 iteracji, ale zwiÄkszone i
-			{
-			for(i=k+2;i<n_wyniku-1;i++)
-			{
-				ladunek_samolotu[2][rozw[2][i]-1] = tmp_przewozowa[(rozw[2][k+1])-1][(rozw[2][i])-1]; //wrzucam paczki do pierwszego lotniska w kolejnoĹci. Koniecznie pierwsza wspĂłĹrzÄdna listy przewozowej staĹa bo biorÄ tylko z jednego lotniska
-				tmp_przewozowa[(rozw[2][k+1])-1)][(rozw[2][i])-1] = 0; //zerujÄ pole listy przewozowej, bo na poczÄtek wrzucam do samolotu wszystkie paczki do danego lotniska
-				zapelnienie[2]=zapelnienie[2]+ladunek_samolotu[2][rozw[2][i]-1]; //dorzucam do sumarycznego zapeĹnienia iloĹÄ paczek
-				if(zapelnienie[2]>=25)
-				{
-					tmp=zapelnienie[2]-25; //tmp Ĺźeby byĹo wiadomo ile ponad stan odjÄÄ
-					tmp_przewozowa[(rozw[2][k+1])-1)][(rozw[2][i])-1] = tmp_przewozowa[(rozw[2][k+1])-1)][(rozw[2][i])-1]+tmp; //dodajÄ do przewozowej
-					ladunek_samolotu[2][rozw[2][i]-1] = ladunek_samolotu[2][rozw[2][i]-1]-tmp; //odejmujÄ z zapeĹnienia w danej iteracji od tego miejsca gdzie siÄ przepeĹniĹo
-					i=n_wyniku-1;//Ĺźeby wyjĹÄ z pÄtli
-				}
-			}
-			}
-	    }
-	    else
-	    {
-		    ladunek_samolotu[2][rozw[2][k+1]]=0;
-			if(zapelnienie[2]<25) //jesli miejsce w samolocie to ta sama funkcja zapeĹniajÄca co dla 1 iteracji, ale zwiÄkszone i
-			{
-			for(i=k+2;i<n_wyniku-1;i++)
-			{
-				ladunek_samolotu[2][rozw[2][i]-1] = tmp_przewozowa[(rozw[2][k+1])-1][(rozw[2][i])-1]; //wrzucam paczki do pierwszego lotniska w kolejnoĹci. Koniecznie pierwsza wspĂłĹrzÄdna listy przewozowej staĹa bo biorÄ tylko z jednego lotniska
-				tmp_przewozowa[(rozw[2][k+1])-1)][(rozw[2][i])-1] = 0; //zerujÄ pole listy przewozowej, bo na poczÄtek wrzucam do samolotu wszystkie paczki do danego lotniska
-				zapelnienie[2]=zapelnienie[2]+ladunek_samolotu[2][rozw[2][i]-1]; //dorzucam do sumarycznego zapeĹnienia iloĹÄ paczek
-				if(zapelnienie[2]>=25)
-				{
-					tmp=zapelnienie[2]-25; //tmp Ĺźeby byĹo wiadomo ile ponad stan odjÄÄ
-					tmp_przewozowa[(rozw[2][k+1])-1)][(rozw[2][i])-1] = tmp_przewozowa[(rozw[2][k+1])-1)][(rozw[2][i])-1]+tmp; //dodajÄ do przewozowej
-					ladunek_samolotu[2][rozw[2][i]-1] = ladunek_samolotu[2][rozw[2][i]-1]-tmp; //odejmujÄ z zapeĹnienia w danej iteracji od tego miejsca gdzie siÄ przepeĹniĹo
-					i=n_wyniku-1;//Ĺźeby wyjĹÄ z pÄtli
-				}
-			}
-			}
-		        //rozĹadunek samolotu (pierwszego)
-		ladunek_samolotu[0][rozw[0][k+1]]=0;
-		//zaĹadunek pierwszego samolotu
-		if(zapelnienie[0]<25) //jesli miejsce w samolocie to ta sama funkcja zapeĹniajÄca co dla 1 iteracji, ale zwiÄkszone i
-		{
-			for(i=k+2;i<n_wyniku-1;i++)
-			{
-				ladunek_samolotu[0][rozw[0][i]-1] = tmp_przewozowa[(rozw[0][k+1])-1][(rozw[0][i])-1]; //wrzucam paczki do pierwszego lotniska w kolejnoĹci. Koniecznie pierwsza wspĂłĹrzÄdna listy przewozowej staĹa bo biorÄ tylko z jednego lotniska
-				tmp_przewozowa[(rozw[0][k+1])-1)][(rozw[0][i])-1] = 0; //zerujÄ pole listy przewozowej, bo na poczÄtek wrzucam do samolotu wszystkie paczki do danego lotniska
-				zapelnienie[0]=zapelnienie[0]+ladunek_samolotu[0][rozw[0][i]-1]; //dorzucam do sumarycznego zapeĹnienia iloĹÄ paczek
-				if(zapelnienie[0]>=25)
-				{
-					tmp=zapelnienie[0]-25; //tmp Ĺźeby byĹo wiadomo ile ponad stan odjÄÄ
-					tmp_przewozowa[(rozw[0][k+1])-1)][(rozw[0][i])-1] = tmp_przewozowa[(rozw[0][k+1])-1)][(rozw[0][i])-1]+tmp; //dodajÄ do przewozowej
-					ladunek_samolotu[0][rozw[0][i]-1] = ladunek_samolotu[0][rozw[0][i]-1]-tmp; //odejmujÄ z zapeĹnienia w danej iteracji od tego miejsca gdzie siÄ przepeĹniĹo
-					i=n_wyniku-1;//Ĺźeby wyjĹÄ z pÄtli
-				}
-			}
-		}
-		    //...
-	    }
-	}
-	else if(dist_plane3<=dist_plane1 && dist_plane3<=dist_plane2)
-	{
-		 ladunek_samolotu[2][rozw[2][k+1]]=0;
-			if(zapelnienie[2]<25) //jesli miejsce w samolocie to ta sama funkcja zapeĹniajÄca co dla 1 iteracji, ale zwiÄkszone i
-			{
-			for(i=k+2;i<n_wyniku-1;i++)
-			{
-				ladunek_samolotu[2][rozw[2][i]-1] = tmp_przewozowa[(rozw[2][k+1])-1][(rozw[2][i])-1]; //wrzucam paczki do pierwszego lotniska w kolejnoĹci. Koniecznie pierwsza wspĂłĹrzÄdna listy przewozowej staĹa bo biorÄ tylko z jednego lotniska
-				tmp_przewozowa[(rozw[2][k+1])-1)][(rozw[2][i])-1] = 0; //zerujÄ pole listy przewozowej, bo na poczÄtek wrzucam do samolotu wszystkie paczki do danego lotniska
-				zapelnienie[2]=zapelnienie[2]+ladunek_samolotu[2][rozw[2][i]-1]; //dorzucam do sumarycznego zapeĹnienia iloĹÄ paczek
-				if(zapelnienie[2]>=25)
-				{
-					tmp=zapelnienie[2]-25; //tmp Ĺźeby byĹo wiadomo ile ponad stan odjÄÄ
-					tmp_przewozowa[(rozw[2][k+1])-1)][(rozw[2][i])-1] = tmp_przewozowa[(rozw[2][k+1])-1)][(rozw[2][i])-1]+tmp; //dodajÄ do przewozowej
-					ladunek_samolotu[2][rozw[2][i]-1] = ladunek_samolotu[2][rozw[2][i]-1]-tmp; //odejmujÄ z zapeĹnienia w danej iteracji od tego miejsca gdzie siÄ przepeĹniĹo
-					i=n_wyniku-1;//Ĺźeby wyjĹÄ z pÄtli
-				}
-			}
-			}
-		if(dist_plane1<=dist_plane2)
-		{
-			      //rozĹadunek samolotu (pierwszego)
-		ladunek_samolotu[0][rozw[0][k+1]]=0;
-		//zaĹadunek pierwszego samolotu
-		if(zapelnienie[0]<25) //jesli miejsce w samolocie to ta sama funkcja zapeĹniajÄca co dla 1 iteracji, ale zwiÄkszone i
-		{
-			for(i=k+2;i<n_wyniku-1;i++)
-			{
-				ladunek_samolotu[0][rozw[0][i]-1] = tmp_przewozowa[(rozw[0][k+1])-1][(rozw[0][i])-1]; //wrzucam paczki do pierwszego lotniska w kolejnoĹci. Koniecznie pierwsza wspĂłĹrzÄdna listy przewozowej staĹa bo biorÄ tylko z jednego lotniska
-				tmp_przewozowa[(rozw[0][k+1])-1)][(rozw[0][i])-1] = 0; //zerujÄ pole listy przewozowej, bo na poczÄtek wrzucam do samolotu wszystkie paczki do danego lotniska
-				zapelnienie[0]=zapelnienie[0]+ladunek_samolotu[0][rozw[0][i]-1]; //dorzucam do sumarycznego zapeĹnienia iloĹÄ paczek
-				if(zapelnienie[0]>=25)
-				{
-					tmp=zapelnienie[0]-25; //tmp Ĺźeby byĹo wiadomo ile ponad stan odjÄÄ
-					tmp_przewozowa[(rozw[0][k+1])-1)][(rozw[0][i])-1] = tmp_przewozowa[(rozw[0][k+1])-1)][(rozw[0][i])-1]+tmp; //dodajÄ do przewozowej
-					ladunek_samolotu[0][rozw[0][i]-1] = ladunek_samolotu[0][rozw[0][i]-1]-tmp; //odejmujÄ z zapeĹnienia w danej iteracji od tego miejsca gdzie siÄ przepeĹniĹo
-					i=n_wyniku-1;//Ĺźeby wyjĹÄ z pÄtli
-				}
-			}
-		}
-		ladunek_samolotu[1][rozw[1][k+1]]=0;
-		if(zapelnienie[1]<25) //jesli miejsce w samolocie to ta sama funkcja zapeĹniajÄca co dla 1 iteracji, ale zwiÄkszone i
-		{
-			for(i=k+2;i<n_wyniku-1;i++)
-			{
-				ladunek_samolotu[1][rozw[1][i]-1] = tmp_przewozowa[(rozw[1][k+1])-1][(rozw[1][i])-1]; //wrzucam paczki do pierwszego lotniska w kolejnoĹci. Koniecznie pierwsza wspĂłĹrzÄdna listy przewozowej staĹa bo biorÄ tylko z jednego lotniska
-				tmp_przewozowa[(rozw[1][k+1])-1)][(rozw[1][i])-1] = 0; //zerujÄ pole listy przewozowej, bo na poczÄtek wrzucam do samolotu wszystkie paczki do danego lotniska
-				zapelnienie[1]=zapelnienie[1]+ladunek_samolotu[1][rozw[1][i]-1]; //dorzucam do sumarycznego zapeĹnienia iloĹÄ paczek
-				if(zapelnienie[1]>=25)
-				{
-					tmp=zapelnienie[1]-25; //tmp Ĺźeby byĹo wiadomo ile ponad stan odjÄÄ
-					tmp_przewozowa[(rozw[1][k+1])-1)][(rozw[1][i])-1] = tmp_przewozowa[(rozw[1][k+1])-1)][(rozw[1][i])-1]+tmp; //dodajÄ do przewozowej
-					ladunek_samolotu[1][rozw[1][i]-1] = ladunek_samolotu[1][rozw[1][i]-1]-tmp; //odejmujÄ z zapeĹnienia w danej iteracji od tego miejsca gdzie siÄ przepeĹniĹo
-					i=n_wyniku-1;//Ĺźeby wyjĹÄ z pÄtli
-				}
-			}
-		}
-		else
-		{
-			ladunek_samolotu[1][rozw[1][k+1]]=0;
-		if(zapelnienie[1]<25) //jesli miejsce w samolocie to ta sama funkcja zapeĹniajÄca co dla 1 iteracji, ale zwiÄkszone i
-		{
-			for(i=k+2;i<n_wyniku-1;i++)
-			{
-				ladunek_samolotu[1][rozw[1][i]-1] = tmp_przewozowa[(rozw[1][k+1])-1][(rozw[1][i])-1]; //wrzucam paczki do pierwszego lotniska w kolejnoĹci. Koniecznie pierwsza wspĂłĹrzÄdna listy przewozowej staĹa bo biorÄ tylko z jednego lotniska
-				tmp_przewozowa[(rozw[1][k+1])-1)][(rozw[1][i])-1] = 0; //zerujÄ pole listy przewozowej, bo na poczÄtek wrzucam do samolotu wszystkie paczki do danego lotniska
-				zapelnienie[1]=zapelnienie[1]+ladunek_samolotu[1][rozw[1][i]-1]; //dorzucam do sumarycznego zapeĹnienia iloĹÄ paczek
-				if(zapelnienie[1]>=25)
-				{
-					tmp=zapelnienie[1]-25; //tmp Ĺźeby byĹo wiadomo ile ponad stan odjÄÄ
-					tmp_przewozowa[(rozw[1][k+1])-1)][(rozw[1][i])-1] = tmp_przewozowa[(rozw[1][k+1])-1)][(rozw[1][i])-1]+tmp; //dodajÄ do przewozowej
-					ladunek_samolotu[1][rozw[1][i]-1] = ladunek_samolotu[1][rozw[1][i]-1]-tmp; //odejmujÄ z zapeĹnienia w danej iteracji od tego miejsca gdzie siÄ przepeĹniĹo
-					i=n_wyniku-1;//Ĺźeby wyjĹÄ z pÄtli
-				}
-			}
-		}
-		}
-			ladunek_samolotu[0][rozw[0][k+1]]=0;
-		//zaĹadunek pierwszego samolotu
-		if(zapelnienie[0]<25) //jesli miejsce w samolocie to ta sama funkcja zapeĹniajÄca co dla 1 iteracji, ale zwiÄkszone i
-		{
-			for(i=k+2;i<n_wyniku-1;i++)
-			{
-				ladunek_samolotu[0][rozw[0][i]-1] = tmp_przewozowa[(rozw[0][k+1])-1][(rozw[0][i])-1]; //wrzucam paczki do pierwszego lotniska w kolejnoĹci. Koniecznie pierwsza wspĂłĹrzÄdna listy przewozowej staĹa bo biorÄ tylko z jednego lotniska
-				tmp_przewozowa[(rozw[0][k+1])-1)][(rozw[0][i])-1] = 0; //zerujÄ pole listy przewozowej, bo na poczÄtek wrzucam do samolotu wszystkie paczki do danego lotniska
-				zapelnienie[0]=zapelnienie[0]+ladunek_samolotu[0][rozw[0][i]-1]; //dorzucam do sumarycznego zapeĹnienia iloĹÄ paczek
-				if(zapelnienie[0]>=25)
-				{
-					tmp=zapelnienie[0]-25; //tmp Ĺźeby byĹo wiadomo ile ponad stan odjÄÄ
-					tmp_przewozowa[(rozw[0][k+1])-1)][(rozw[0][i])-1] = tmp_przewozowa[(rozw[0][k+1])-1)][(rozw[0][i])-1]+tmp; //dodajÄ do przewozowej
-					ladunek_samolotu[0][rozw[0][i]-1] = ladunek_samolotu[0][rozw[0][i]-1]-tmp; //odejmujÄ z zapeĹnienia w danej iteracji od tego miejsca gdzie siÄ przepeĹniĹo
-					i=n_wyniku-1;//Ĺźeby wyjĹÄ z pÄtli
-				}
-			}
-		}
-		}
-	}
+
+        tabu_list[i] = new element [n_wyniku];
     }
-	for(int w=0;w<8;w++)
-		for(int k=0;k<8;k++)
-			if(tmp_przewozowa[w][k]!=0) return 0;
-			else {}
-	for(w=0;w<3;w++)
-		for(int k=0;k<8;k++)
-			if(ladunek_samolotu[w][k]!=0) return 0;
-			else {}
-	return 1;
+    for(int i=0;i<3;i++)
+    {
+        for(int j=0;j<n_wyniku;j++)
+        {
+            tabu_list[i][j].czas=0;
+            //tabu_list[i][j].dokad=-1;
+        }
+    }
 }
-*/
+
+
+
+void zlecenie::wykonaj_sasiedztwo()
+{
+
+    std::cout<<"\nwynik przed sasiedztwem:\n";
+        for (int i = 0; i<3; i++)
+        {
+            for(int j=0;j<n_wyniku;j++)
+            std::cout<<tmp_wynik[i][j]<<" ";
+            std::cout<<"\n";
+            std::cout<<"\n";
+        }
+
+    int temp=0;
+    srand( time( NULL ) );
+    int pierwszy_j1=rand() % n_wyniku;
+    int pierwszy_j2=rand() % n_wyniku;
+    int drugi_j1=rand() % n_wyniku;
+    int drugi_j2=rand() % n_wyniku;
+    int trzeci_j1=rand() % n_wyniku;
+    int trzeci_j2=rand() % n_wyniku;
+     std::cout<<"\npj1: "<<pierwszy_j1<<" pj2: "<<pierwszy_j2<<"\n";
+std::cout<<"\ndj1: "<<drugi_j1<<" dj2: "<<drugi_j2<<"\n";
+std::cout<<"\ntj1: "<<trzeci_j1<<" tj2: "<<trzeci_j2<<"\n";
+
+    //zamiana pierwszy
+    if((tabu_list[0][pierwszy_j1].czas==0&&tabu_list[0][pierwszy_j1].dokad!=pierwszy_j2)&&(tabu_list[0][pierwszy_j2].czas==0&&tabu_list[0][pierwszy_j2].dokad!=pierwszy_j1))
+    {
+    temp=tmp_wynik[0][pierwszy_j1];
+    tmp_wynik[0][pierwszy_j1]=tmp_wynik[0][pierwszy_j2];
+    tmp_wynik[0][pierwszy_j2]=temp;
+
+    tabu_list[0][pierwszy_j1].czas=ILEITERACJI;
+    tabu_list[0][pierwszy_j2].czas=ILEITERACJI;
+    tabu_list[0][pierwszy_j1].dokad=pierwszy_j2;
+    tabu_list[0][pierwszy_j2].dokad=pierwszy_j1;
+    }
+
+
+    //zamiana drugi
+    if((tabu_list[1][drugi_j1].czas==0&&tabu_list[1][drugi_j1].dokad!=drugi_j2)&&(tabu_list[1][drugi_j2].czas==0&&tabu_list[1][drugi_j2].dokad!=drugi_j1))
+    {
+    temp=tmp_wynik[1][drugi_j1];
+    tmp_wynik[1][drugi_j1]=tmp_wynik[1][drugi_j2];
+    tmp_wynik[1][drugi_j2]=temp;
+
+    tabu_list[1][drugi_j1].czas=ILEITERACJI;
+    tabu_list[1][drugi_j2].czas=ILEITERACJI;
+    tabu_list[1][drugi_j1].dokad=drugi_j2;
+    tabu_list[1][drugi_j2].dokad=drugi_j1;
+    }
+
+    //zamiana trzeci
+    if((tabu_list[2][trzeci_j1].czas==0&&tabu_list[2][trzeci_j1].dokad!=trzeci_j2)&&(tabu_list[2][trzeci_j2].czas==0&&tabu_list[2][trzeci_j2].dokad!=trzeci_j1))
+    {
+    temp=tmp_wynik[2][trzeci_j1];
+    tmp_wynik[2][trzeci_j1]=tmp_wynik[2][trzeci_j2];
+    tmp_wynik[2][trzeci_j2]=temp;
+
+    tabu_list[2][trzeci_j1].czas=ILEITERACJI;
+    tabu_list[2][trzeci_j2].czas=ILEITERACJI;
+    tabu_list[2][trzeci_j1].dokad=trzeci_j2;
+    tabu_list[2][trzeci_j2].dokad=trzeci_j1;
+    }
+
+    std::cout<<"\nwynik po sasiedztwie:\n";
+        for (int i = 0; i<3; i++)
+        {
+            for(int j=0;j<n_wyniku;j++)
+            std::cout<<tmp_wynik[i][j]<<" ";
+            std::cout<<"\n";
+        }
+
+
+}
+
