@@ -317,7 +317,7 @@ int zlecenie:: ObliczFCelu(int **rozw)
   for(int w=0;w<3;w++)
   {
     for(int k=1;k<(n_wyniku-1);k++)
-      temporary_result = temporary_result + oplata_lotniskowa[k-1]+koszt_tankowania[(rozw[w][k-1])-1][(rozw[w][k])-1]+zaladowanie_samolotu[w][k-1]*odleglosci[rozw[w][k-1]-1][rozw[w][k]-1]*spalanie;
+      temporary_result = temporary_result + oplata_lotniskowa[(rozw[w][k-1])]+koszt_tankowania[(rozw[w][k-1])][(rozw[w][k])]+zaladowanie_samolotu[w][k-1]*odleglosci[rozw[w][k-1]][rozw[w][k]]*spalanie;
   }
 	return temporary_result;
 }
