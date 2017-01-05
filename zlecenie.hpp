@@ -52,6 +52,9 @@ struct element
     int sprawdz_dopuszczalnosc(int ** rozw);
     int maximum(int *tab);
     void test();
+    void roz0(int* zapelnieniee, int** ladunek_samolotue, int** tmp_przewozowae, int** rozwe, int tmpe, int n_wynikue, int ke);
+    void roz1(int* zapelnieniee, int** ladunek_samolotue, int** tmp_przewozowae, int** rozwe, int tmpe, int n_wynikue, int ke);
+    void roz2(int* zapelnieniee, int** ladunek_samolotue, int** tmp_przewozowae, int** rozwe, int tmpe, int n_wynikue, int ke);
     void wykonaj_sasiedztwo();
     void generuj_tabu();
 
