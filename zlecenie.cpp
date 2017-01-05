@@ -450,8 +450,8 @@ std::cout<<"\n"<<cel;
 
 void zlecenie::InitialSolution()
 {
-    int n_wyniku=1;
-    int ktoraiteracja=0;
+    int n_wyniku=2;
+    int ktoraiteracja=1;
     zaladowanie_samolotu = new int * [n_wyniku];
     for (int i = 0; i<3; i++)
     {
@@ -471,6 +471,10 @@ void zlecenie::InitialSolution()
     {
     tmp_wynik[i][0] = 0;
     }
+	   for (int i = 0; i<3; i++)
+    {
+    tmp_wynik[i][1] = 0;
+    }
 
     int *temp1;
     int *temp2;
@@ -485,12 +489,17 @@ void zlecenie::InitialSolution()
             temp1[i]=0;
             temp2[i]=0;
             temp3[i]=0;
-
     }
+	
 
     int odkad1=0;
     int odkad2=1;
     int odkad3=3;
+	
+	tmp_wynik[0][0]=odkad1;
+	tmp_wynik[1][0]=odkad2;
+	tmp_wynik[2][0]=odkad3;
+	
     int cnt=0;
     //duza petla
   while(czyNiePuste(lista_przewozowa))
@@ -951,7 +960,8 @@ std::cout<<"\ntj1: "<<trzeci_j1<<" tj2: "<<trzeci_j2<<"\n";
 
 }
 
-
+int zlecenie:: sprawdz_dopuszczalnosc(int ** rozw)
+{
 this->WczytajzPliku("lista.txt","tankowanie.txt","odleglosc.txt","czasy.txt","oplata.txt",8);
 	int **tmp_przewozowa = new int * [rozmiar];
 	for(int i=0;i<rozmiar;i++)
