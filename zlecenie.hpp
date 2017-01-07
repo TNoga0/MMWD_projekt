@@ -57,7 +57,10 @@ struct element
     void roz2(int* zapelnieniee, int** ladunek_samolotue, int** tmp_przewozowae, int** rozwe, int tmpe, int n_wynikue, int ke);
     void wykonaj_sasiedztwo();
     void generuj_tabu();
-
+    void zlota_raczka();
+    void dekremTabu();
+    void dopliku();
+    void czyscplik();
 };
 
 

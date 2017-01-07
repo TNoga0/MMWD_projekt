@@ -376,6 +376,9 @@ void zlecenie::resizeZaladowanie(int n)
 
 }
 
+
+
+
 bool zlecenie::czyNiePuste(int **tab)
 {
     int k=0;
@@ -429,20 +432,8 @@ int zlecenie::maximum(int *tab)
 
 void zlecenie::test()
 {
-    for(int w=0;w<3;w++)
-    {
-
-    	for(int k=0;k<n_wyniku;k++)
-    	{
-
-    		std::cout<<best_wynik[w][k]<<" ";
-
-}
-std::cout<<"\n";
-}
-
-int cel=ObliczFCelu(best_wynik);
-std::cout<<"\n"<<cel;
+int cel=ObliczFCelu(tmp_wynik);
+std::cout<<"\nWartosc f celu: "<<cel<<"\n";
 
 }
 
@@ -490,16 +481,16 @@ void zlecenie::InitialSolution()
             temp2[i]=0;
             temp3[i]=0;
     }
-	
+
 
     int odkad1=0;
     int odkad2=1;
     int odkad3=3;
-	
+
 	tmp_wynik[0][0]=odkad1;
 	tmp_wynik[1][0]=odkad2;
 	tmp_wynik[2][0]=odkad3;
-	
+
     int cnt=0;
     //duza petla
   while(czyNiePuste(lista_przewozowa))
@@ -669,7 +660,7 @@ std::cout<<"   tutaj   \n";
         else{
             tmp_wynik[2][n_wyniku-1]=0;
         }
-         std::cout<<"\nwynik:\n";
+       /*  std::cout<<"\nwynik:\n";
         for (int i = 0; i<3; i++)
         {
             for(int j=0;j<n_wyniku;j++)
@@ -683,10 +674,10 @@ std::cout<<"   tutaj   \n";
             std::cout<<zaladowanie_samolotu[i][j]<<" ";
             std::cout<<"\n";
         }
-        std::cout<<"\ndupa\n";
+        std::cout<<"\ndupa\n"; */
         resizeWynik(n_wyniku+1);
         n_wyniku++;
-        std::cout<<n_wyniku;
+       /* std::cout<<n_wyniku;
          std::cout<<"\nwynik:\n";
         for (int i = 0; i<3; i++)
         {
@@ -694,9 +685,9 @@ std::cout<<"   tutaj   \n";
             std::cout<<tmp_wynik[i][j]<<" ";
             std::cout<<"\n";
         }
-        std::cout<<"\ndupa1\n";
+        std::cout<<"\ndupa1\n"; */
         resizeZaladowanie(n_wyniku);
-        std::cout<<"\nmarek to faja\n\n";
+  /*      std::cout<<"\nmarek to faja\n\n";
     std::cout<<"Lista Przewozowa: \n";
     for(int i =0;i<rozmiar;i++)
     {
@@ -724,9 +715,9 @@ std::cout<<"   tutaj   \n";
             std::cout<<"\n";
 
      	}
-        std::cout<<"\n";
+        std::cout<<"\n"; */
     }
-    std::cout<<"po zalad";
+   //std::cout<<"po zalad";
 
 	int tymczasowy = n_wyniku;
 int tymczasowy1 = tymczasowy;
@@ -905,10 +896,10 @@ void zlecenie::wykonaj_sasiedztwo()
     int drugi_j2=rand() % n_wyniku;
     int trzeci_j1=rand() % n_wyniku;
     int trzeci_j2=rand() % n_wyniku;
-     std::cout<<"\npj1: "<<pierwszy_j1<<" pj2: "<<pierwszy_j2<<"\n";
+/* std::cout<<"\npj1: "<<pierwszy_j1<<" pj2: "<<pierwszy_j2<<"\n";
 std::cout<<"\ndj1: "<<drugi_j1<<" dj2: "<<drugi_j2<<"\n";
 std::cout<<"\ntj1: "<<trzeci_j1<<" tj2: "<<trzeci_j2<<"\n";
-
+*/
     //zamiana pierwszy
     if((tabu_list[0][pierwszy_j1].czas==0&&tabu_list[0][pierwszy_j1].dokad!=pierwszy_j2)&&(tabu_list[0][pierwszy_j2].czas==0&&tabu_list[0][pierwszy_j2].dokad!=pierwszy_j1))
     {
@@ -966,11 +957,11 @@ this->WczytajzPliku("lista.txt","tankowanie.txt","odleglosc.txt","czasy.txt","op
 	int **tmp_przewozowa = new int * [rozmiar];
 	for(int i=0;i<rozmiar;i++)
 		tmp_przewozowa[i] = new int[rozmiar];
-		
+
 		int **ladunek_samolotu = new int * [3];
 	for(int i=0;i<3;i++)
 		ladunek_samolotu[i] = new int[rozmiar];
-		
+
 	for(int w=0;w<rozmiar;w++)
 	{
 		for(int k=0;k<rozmiar;k++)
@@ -978,7 +969,7 @@ this->WczytajzPliku("lista.txt","tankowanie.txt","odleglosc.txt","czasy.txt","op
 			tmp_przewozowa[w][k]=lista_przewozowa[w][k];
 		}
 	}
-	
+
 	for(int w=0;w<3;w++)
 	{
 		for(int k=0;k<rozmiar;k++)
@@ -994,7 +985,7 @@ this->WczytajzPliku("lista.txt","tankowanie.txt","odleglosc.txt","czasy.txt","op
     int dist_plane3;
     int tmp = 0;
     int *zapelnienie = new int[3]; //jak bardzo sumarycznie zapelniony jest dany samolot w danej iteracji;
-	for(int x=0;x<3;x++) 
+	for(int x=0;x<3;x++)
 	{
 		zapelnienie[x]=0;
 	}
@@ -1006,7 +997,7 @@ this->WczytajzPliku("lista.txt","tankowanie.txt","odleglosc.txt","czasy.txt","op
 	zapelnienie[0]=zapelnienie[0]+ladunek_samolotu[0][rozw[0][i]]; //dorzucam do sumarycznego zapeĹ?nienia iloĹ?Ä? paczek
 		if(zapelnienie[0]>=25)
 		{
-			
+
 //			std::cout<<"poszło\n";
 			tmp=zapelnienie[0]-25; //tmp Ĺźeby byĹ?o wiadomo ile ponad stan odjÄ?Ä?
 			tmp_przewozowa[(rozw[0][0])][(rozw[0][i])] = tmp_przewozowa[(rozw[0][0])][(rozw[0][i])]+tmp; //dodajÄ? do przewozowej
@@ -1033,7 +1024,7 @@ this->WczytajzPliku("lista.txt","tankowanie.txt","odleglosc.txt","czasy.txt","op
 			tmp = 0;
 		}
 	}
-	
+
 	for(int k=1;k<n_wyniku-1;k++)
 	{
 	ladunek_samolotu[2][rozw[2][k]] = tmp_przewozowa[(rozw[2][0])][(rozw[2][k])];
@@ -1049,30 +1040,30 @@ this->WczytajzPliku("lista.txt","tankowanie.txt","odleglosc.txt","czasy.txt","op
 			tmp = 0;
 		}
 	}
-	
-	//std::cout<<"poszło\n";
-	
-	
 
-	
+	//std::cout<<"poszło\n";
+
+
+
+
 	//-------------------------------------------------- po pierwsze jiteracji
     for(int k=0;k<4;k++)
     {
         dist_plane1 = odleglosci[rozw[0][k]][rozw[0][k+1]]; //odlegĹ?oĹ?Ä? do kolejnego lotniska 1 samolotu, ma to na celu determinowanie ktĂłry doleci pierwszy jeĹ?li lecÄ? na to samo lotnisko
         dist_plane2 = odleglosci[rozw[1][k]][rozw[1][k+1]];
         dist_plane3 = odleglosci[rozw[2][k]][rozw[2][k+1]];
-        
+
         if(dist_plane1<=dist_plane2 && dist_plane1<=dist_plane3) //inaczej to bÄ?dzie //sprawedzanie ktĂłry doleci 1 na miejsce
 		{
 		//rozĹ?adunek samolotu (pierwszego)
 		this->roz0(zapelnienie,ladunek_samolotu,tmp_przewozowa,rozw,tmp,n_wyniku,k);
-		
+
 		if(dist_plane2<dist_plane3) //sprawdzenie który z pozostałej dwójki będzie wczesniej
 		{
-			
+
 			this->roz1(zapelnienie,ladunek_samolotu,tmp_przewozowa,rozw,tmp,n_wyniku,k);
 			this->roz2(zapelnienie,ladunek_samolotu,tmp_przewozowa,rozw,tmp,n_wyniku,k);
-		} 
+		}
 		else
 		{
 			this->roz2(zapelnienie,ladunek_samolotu,tmp_przewozowa,rozw,tmp,n_wyniku,k);
@@ -1108,10 +1099,10 @@ this->WczytajzPliku("lista.txt","tankowanie.txt","odleglosc.txt","czasy.txt","op
 		this->roz0(zapelnienie,ladunek_samolotu,tmp_przewozowa,rozw,tmp,n_wyniku,k);
 		}
 		}
-	
-	
+
+
 	    //WYPISANIE
-    
+
     for(int w=0;w<rozmiar;w++)
 	{
 		for(int k=0;k<rozmiar;k++)
@@ -1122,30 +1113,30 @@ this->WczytajzPliku("lista.txt","tankowanie.txt","odleglosc.txt","czasy.txt","op
 		std::cout<<"\n";
 	}
 	std::cout<<"\n \n";
-	
+
 	for(int w=0;w<3;w++)
 	{
 		for(int k=0;k<rozmiar;k++)
 		{
 			std::cout<<(ladunek_samolotu[w][k]);
 			std::cout<<" ";
-			
+
 		}
 		std::cout<<"\n";
 	}
 	std::cout<<"\n \n";
-	
+
 	//--------------------------------
-	
-		for(int x=0;x<3;x++) 
+
+		for(int x=0;x<3;x++)
 	{
 		std::cout<<zapelnienie[x];
 		std::cout<<"\n";
 	}
 		std::cout<<"\n";
-	
+
     //WYPISANIE
-    
+
 //    for(int w=0;w<rozmiar;w++)
 //	{
 //		for(int k=0;k<rozmiar;k++)
@@ -1156,23 +1147,23 @@ this->WczytajzPliku("lista.txt","tankowanie.txt","odleglosc.txt","czasy.txt","op
 //		std::cout<<"\n";
 //	}
 //	std::cout<<"\n \n";
-//	
+//
 //	for(int w=0;w<3;w++)
 //	{
 //		for(int k=0;k<rozmiar;k++)
 //		{
 //			std::cout<<(ladunek_samolotu[w][k]);
 //			std::cout<<" ";
-//			
+//
 //		}
 //		std::cout<<"\n";
 //	}
 //	std::cout<<"\n \n";
-	
+
 	//--------------------------------
-    
+
 	}
-    
+
 	for(int w=0;w<rozmiar;w++)
 	{
 		for(int k=0;k<rozmiar;k++)
@@ -1197,7 +1188,7 @@ void zlecenie::roz0(int* zapelnieniee, int** ladunek_samolotue, int** tmp_przewo
 			//rozĹ?adunek samolotu (pierwszego)
 		zapelnieniee[0] = zapelnieniee[0]-ladunek_samolotue[0][rozwe[0][ke+1]];
 		ladunek_samolotue[0][rozwe[0][ke+1]]=0;
-		
+
 		//zaĹ?adunek pierwszego samolotu
 		if(zapelnieniee[0]<25) //jesli miejsce w samolocie to ta sama funkcja zapeĹ?niajÄ?ca co dla 1 iteracji, ale zwiÄ?kszone i
 		{
@@ -1267,4 +1258,382 @@ void zlecenie::roz2(int* zapelnieniee, int** ladunek_samolotue, int** tmp_przewo
 			}
 			}
 }
+
+void zlecenie::zlota_raczka()
+{
+    this->WczytajzPliku("lista.txt","tankowanie.txt","odleglosc.txt","czasy.txt","oplata.txt",8);
+    int loc_n_wyniku=n_wyniku;
+    int ktoraiteracja=0;
+    int odkad1=0;
+    int odkad2=1;
+    int odkad3=3;
+    int cnt=0;
+    //int **loc_zaladowanie_samolotu;
+    //loc_zaladowanie_samolotu = new int * [n_wyniku];
+    //for (int i = 0; i<3; i++)
+   // {
+    //loc_zaladowanie_samolotu[i] = new int [n_wyniku];
+   // }
+    for (int i = 0; i<3; i++)
+    {
+        for(int j=0;j<n_wyniku;j++)
+            zaladowanie_samolotu[i][j] = 0;
+    }
+
+    int *temp1;
+    int *temp2;
+    int *temp3;
+
+    temp1 = new int[rozmiar];
+    temp2 = new int[rozmiar];
+    temp3 = new int[rozmiar];
+
+	for(int i =0; i<rozmiar; i++)
+    {
+            temp1[i]=0;
+            temp2[i]=0;
+            temp3[i]=0;
+
+    }
+
+
+    while(czyNiePuste(lista_przewozowa)&&ktoraiteracja<n_wyniku)
+    {
+        while(((zaladowanie_samolotu[0][ktoraiteracja])<25)&&(cnt<(rozmiar+1)))   //1 samolot
+            {
+
+
+                    for (int j =0; j<rozmiar; j++)
+                    {
+                        cnt++;
+                       if(lista_przewozowa[odkad1][j]!=0)
+                       {
+                           if(((zaladowanie_samolotu[0][ktoraiteracja])+lista_przewozowa[odkad1][j])<=25)
+                           {
+
+                               temp1[j]=temp1[j]+lista_przewozowa[odkad1][j];//j=i
+                               zaladowanie_samolotu[0][ktoraiteracja]=zaladowanie_samolotu[0][ktoraiteracja]+lista_przewozowa[odkad1][j];
+                               lista_przewozowa[odkad1][j]=0;
+
+                           }
+                           else
+                           {
+                               if(zaladowanie_samolotu[0][ktoraiteracja]==25)
+                                {
+
+                                }
+                               else
+                                {
+//std::cout<<"   tutaj   \n";
+
+                                 temp1[j]=temp1[j]+(lista_przewozowa[odkad1][j]-(zaladowanie_samolotu[0][ktoraiteracja]+lista_przewozowa[odkad1][j]-25));
+                                 lista_przewozowa[odkad1][j]=(zaladowanie_samolotu[0][ktoraiteracja]+lista_przewozowa[odkad1][j]-25);
+                                 zaladowanie_samolotu[0][ktoraiteracja]=25;
+
+
+                                }
+
+                           }
+                       }
+
+
+                }
+            }
+
+            while(((zaladowanie_samolotu[1][ktoraiteracja])<25)&&(cnt<(2*rozmiar+2)))   //2 samolot
+            {
+
+
+                    for (int j =0; j<rozmiar; j++)
+                    {
+                        cnt++;
+                       if(lista_przewozowa[odkad2][j]!=0)
+                       {
+                           if((zaladowanie_samolotu[1][ktoraiteracja]+lista_przewozowa[odkad2][j])<=25)
+                           {
+                               temp2[j]=temp2[j]+lista_przewozowa[odkad2][j];
+                               zaladowanie_samolotu[1][ktoraiteracja]=zaladowanie_samolotu[1][ktoraiteracja]+lista_przewozowa[odkad2][j];
+                               lista_przewozowa[odkad2][j]=0;
+
+                           }
+                           else
+                           {
+                               if(zaladowanie_samolotu[1][ktoraiteracja]==25)
+                                {
+
+                                }
+                               else
+                                {
+                                 temp2[j]=temp2[j]+(lista_przewozowa[odkad2][j]-(zaladowanie_samolotu[1][ktoraiteracja]+lista_przewozowa[odkad2][j]-25));
+                                 lista_przewozowa[odkad2][j]=(zaladowanie_samolotu[1][ktoraiteracja]+lista_przewozowa[odkad2][j]-25);
+                                 zaladowanie_samolotu[1][ktoraiteracja]=25;
+
+
+                                }
+
+                           }
+                       }
+
+
+                }
+
+            }
+
+
+            while((zaladowanie_samolotu[2][ktoraiteracja])<25&&(cnt<(3*rozmiar+3)))   //3 samolot
+            {
+
+
+                    for (int j =0; j<rozmiar; j++)
+                    {
+                        cnt++;
+                    	if(lista_przewozowa[odkad3][j]!=0)
+                       	{
+                           if((zaladowanie_samolotu[2][ktoraiteracja]+lista_przewozowa[odkad3][j])<=25)
+                           {
+                               temp3[j]=temp3[j]+lista_przewozowa[odkad3][j];
+                               zaladowanie_samolotu[2][ktoraiteracja]=zaladowanie_samolotu[2][ktoraiteracja]+lista_przewozowa[odkad3][j];
+                               lista_przewozowa[odkad3][j]=0;
+                           }
+                           else
+                           {
+                               if(zaladowanie_samolotu[2][ktoraiteracja]==25)
+                                {
+
+                                }
+                               else
+                                {
+                                 temp3[j]=temp3[j]+(lista_przewozowa[odkad3][j]-(zaladowanie_samolotu[2][ktoraiteracja]+lista_przewozowa[odkad3][j]-25));
+                                 lista_przewozowa[odkad3][j]=(zaladowanie_samolotu[2][ktoraiteracja]+lista_przewozowa[odkad3][j]-25);
+                                 zaladowanie_samolotu[2][ktoraiteracja]=25;
+
+                                }
+
+                           }
+                       }
+
+
+                }
+            }
+            ktoraiteracja++;
+            cnt=0;
+
+       if(czyNiePuste(temp1))
+        {
+        odkad1=tmp_wynik[0][ktoraiteracja];
+        //std::cout<<"\nodkad1: "<<odkad1;
+        zaladowanie_samolotu[0][ktoraiteracja]=zaladowanie_samolotu[0][ktoraiteracja-1]-temp1[odkad1];
+        //std::cout<<"\nzaladowanie1 , -1, tmp: "<<zaladowanie_samolotu[0][ktoraiteracja]<<" "<<zaladowanie_samolotu[0][ktoraiteracja-1]<<" "<<temp1[odkad1]<<"\n";
+        temp1[odkad1]=0;
+        }
+
+
+        if(czyNiePuste(temp2))
+        {
+        odkad2=tmp_wynik[1][ktoraiteracja];
+        zaladowanie_samolotu[1][ktoraiteracja]=zaladowanie_samolotu[1][ktoraiteracja-1]-temp2[odkad2];
+        temp2[odkad2]=0;
+        }
+
+
+         if(czyNiePuste(temp3))
+        {
+        odkad3=tmp_wynik[2][ktoraiteracja];
+        zaladowanie_samolotu[2][ktoraiteracja]=zaladowanie_samolotu[2][ktoraiteracja-1]-temp3[odkad3];
+        temp3[odkad3]=0;
+        }
+
+    /*     std::cout<<"\nwynik kurwa:\n";
+        for (int i = 0; i<3; i++)
+        {
+            for(int j=0;j<ktoraiteracja;j++)
+            std::cout<<tmp_wynik[i][j]<<" ";
+            std::cout<<"\n";
+        }
+         std::cout<<"\nzalado ja pierdole:\n";
+        for (int i = 0; i<3; i++)
+        {
+            for(int j=0;j<ktoraiteracja;j++)
+            std::cout<<zaladowanie_samolotu[i][j]<<" ";
+            std::cout<<"\n";
+        }
+
+    std::cout<<"Lista Przewozowa chuj: \n";
+    for(int i =0;i<rozmiar;i++)
+    {
+        for(int j=0;j<rozmiar;j++)
+            std::cout<<lista_przewozowa[i][j]<<" ";
+        std::cout<<"\n\n";
+    }
+
+     std::cout<<"\n\n";
+     std::cout<<odkad3;
+     std::cout<<" ";
+     std::cout <<odkad1;
+
+
+
+        std::cout<<"------------------------\n";
+	std::cout<< "tmp : \n";
+
+        for(int j=0;j<rozmiar;j++)
+        {
+
+            std::cout<<temp1[j]<<" ";
+            std::cout<<temp2[j]<<" ";
+            std::cout<<temp3[j]<<" ";
+            std::cout<<"\n";
+
+     	}
+        std::cout<<"\n"; */
+    }
+    //std::cout<<"po zalad kurwa";
+
+
+    if(!czyNiePuste(lista_przewozowa))
+    {
+        int tym1,tym2,tym3;
+        tym1=tym2=tym3=ktoraiteracja;
+
+        while(czyNiePuste(temp1))
+        {
+        tym1++;
+        resizeWynik(tym1);
+        resizeZaladowanie(tym1);
+        odkad1=maximum(temp1);
+        tmp_wynik[0][tym1-1]=odkad1;
+        zaladowanie_samolotu[0][tym1-1]=zaladowanie_samolotu[0][tym1-2]-temp1[odkad1];
+        temp1[odkad1]=0;
+        }
+
+        while(czyNiePuste(temp2))
+        {
+            if(tym1>tym2)
+            {
+            tym2++;
+            odkad2=maximum(temp2);
+            tmp_wynik[1][tym2-1]=odkad2;
+            zaladowanie_samolotu[1][tym2-1]=zaladowanie_samolotu[1][tym2-2]-temp2[odkad2];
+            temp2[odkad2]=0;
+            }
+            else
+            {
+            tym2++;
+            resizeWynik(tym2);
+            resizeZaladowanie(tym2);
+            odkad2=maximum(temp2);
+            tmp_wynik[1][tym2-1]=odkad2;
+            zaladowanie_samolotu[1][tym2-1]=zaladowanie_samolotu[1][tym2-2]-temp2[odkad2];
+            temp2[odkad2]=0;
+            }
+        }
+
+        while(czyNiePuste(temp3))
+        {
+            if(tym2>tym3)
+            {
+            tym3++;
+            odkad3=maximum(temp3);
+            tmp_wynik[2][tym3-1]=odkad3;
+            zaladowanie_samolotu[2][tym3-1]=zaladowanie_samolotu[2][tym3-2]-temp3[odkad3];
+            temp3[odkad3]=0;
+            }
+            else
+            {
+            tym3++;
+            resizeWynik(tym3);
+            resizeZaladowanie(tym3);
+            odkad3=maximum(temp3);
+            tmp_wynik[2][tym3-1]=odkad3;
+            zaladowanie_samolotu[2][tym3-1]=zaladowanie_samolotu[2][tym3-2]-temp3[odkad3];
+            temp3[odkad3]=0;
+            }
+        }
+
+
+    int biggest;
+	if(tym1>tym2)
+		biggest=tym1;
+	else
+		biggest = tym2;
+
+		if(biggest>tym3)
+		{
+		}
+		else
+		biggest=tym3;
+
+        std::cout<<"\nwynik naprawa:\n";
+        for (int i = 0; i<3; i++)
+        {
+            for(int j=0;j<biggest;j++)
+            std::cout<<tmp_wynik[i][j]<<" ";
+            std::cout<<"\n";
+        }
+         std::cout<<"\nzalado naprawa:\n";
+        for (int i = 0; i<3; i++)
+        {
+            for(int j=0;j<biggest;j++)
+            std::cout<<zaladowanie_samolotu[i][j]<<" ";
+            std::cout<<"\n";
+        }
+        std::cout<<"\n";
+        for(int j=0;j<rozmiar;j++)
+        {
+
+            std::cout<<temp1[j]<<" ";
+            std::cout<<temp2[j]<<" ";
+            std::cout<<temp3[j]<<" ";
+            std::cout<<"\n";
+
+     	}
+        std::cout<<"\n";
+        this->n_wyniku = biggest;
+    }
+
+
+
+std::cout<<"\nkoniec";
+
+
+    }
+
+
+void zlecenie::dekremTabu()
+{
+    for(int i=0;i<3;i++)
+    {
+        for(int j=0;j<n_wyniku;j++)
+            if(tabu_list[i][j].czas!=0)
+                tabu_list[i][j].czas=(tabu_list[i][j].czas)-1;
+        else
+            tabu_list[i][j].dokad=20;
+    }
+}
+
+
+void zlecenie::dopliku()
+{
+    int cel=ObliczFCelu(tmp_wynik);
+    std::ofstream Fcelu;
+   Fcelu.open("naszafcelu.txt",std::ios::app);
+   Fcelu<<cel<<std::endl;
+   Fcelu.close();
+
+}
+
+
+void zlecenie::czyscplik()
+{
+    std::ofstream Fcelu;
+   Fcelu.open("naszafcelu.txt",std::ios::trunc);
+   Fcelu.close();
+}
+
+
+
+
+
+
+
 

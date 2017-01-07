@@ -15,9 +15,20 @@ int main()
         firma1.show_lista();
         firma1.InitialSolution();
         firma1.test();
+        firma1.czyscplik();
+        firma1.dopliku();
       cout<<"\n";
     firma1.generuj_tabu();
-    firma1.wykonaj_sasiedztwo();
+    for(int i=0;i<50;i++)
+    {
+        cout<<"\nSasiedztwo: \n";
+        firma1.wykonaj_sasiedztwo();
+        cout<<"\nZLOTA RACZKA:\n";
+        firma1.zlota_raczka();
+        firma1.dekremTabu();
+        firma1.test();
+        firma1.dopliku();
+    }
 
 
 
