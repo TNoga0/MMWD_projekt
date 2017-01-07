@@ -1617,7 +1617,7 @@ void zlecenie::dopliku()
     int cel=ObliczFCelu(tmp_wynik);
     std::ofstream Fcelu;
    Fcelu.open("naszafcelu.txt",std::ios::app);
-   Fcelu<<cel<<std::endl;
+   Fcelu<<cel<<","<<std::endl;
    Fcelu.close();
 
 }
