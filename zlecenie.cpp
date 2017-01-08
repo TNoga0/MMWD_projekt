@@ -1782,23 +1782,24 @@ void zlecenie::czyscplik()
 void zlecenie::zalad0(int* zapelnieniee, int** ladunek_samolotue, int** tmp_przewozowae, int** rozwe, int tmpe, int n_wynikue, int ke)
 {	
 	int cos = ke;
+	int cosik = ke+1;
 	while(zapelnieniee[0]<=25 && ke<n_wyniku-2)
 	{
 		
 		//std::cout<<zapelnieniee[0]<<"\n";
 		int temp =  25 - zapelnieniee[0];
-		if(tmp_przewozowae[rozwe[0][ke+1]][rozwe[0][ke+2]]!=0)
+		if(tmp_przewozowae[rozwe[0][cosik]][rozwe[0][ke+2]]!=0)
 		
-			if(tmp_przewozowae[rozwe[0][ke+1]][rozwe[0][ke+2]] <= temp)
+			if(tmp_przewozowae[rozwe[0][cosik]][rozwe[0][ke+2]] <= temp)
 			{
-				ladunek_samolotue[0][rozwe[0][ke+2]] = ladunek_samolotue[0][rozwe[0][ke+2]] + tmp_przewozowae[rozwe[0][ke+1]][rozwe[0][ke+2]];
-				zapelnieniee[0] = zapelnieniee[0]+tmp_przewozowae[rozwe[0][ke+1]][rozwe[0][ke+2]];
-				tmp_przewozowae[rozwe[0][ke+1]][rozwe[0][ke+2]] = 0;
+				ladunek_samolotue[0][rozwe[0][ke+2]] = ladunek_samolotue[0][rozwe[0][ke+2]] + tmp_przewozowae[rozwe[0][cosik]][rozwe[0][ke+2]];
+				zapelnieniee[0] = zapelnieniee[0]+tmp_przewozowae[rozwe[0][cosik]][rozwe[0][ke+2]];
+				tmp_przewozowae[rozwe[0][cosik]][rozwe[0][ke+2]] = 0;
 			}
 			else
 				{
 					ladunek_samolotue[0][rozwe[0][ke+2]] = ladunek_samolotue[0][rozwe[0][ke+2]] + temp;
-					tmp_przewozowae[rozwe[0][ke+1]][rozwe[0][ke+2]] = tmp_przewozowae[rozwe[0][ke+1]][rozwe[0][ke+2]] - temp;
+					tmp_przewozowae[rozwe[0][cosik]][rozwe[0][ke+2]] = tmp_przewozowae[rozwe[0][cosik]][rozwe[0][ke+2]] - temp;
 					zapelnieniee[0] = zapelnieniee[0]+temp;
 				}
 		
@@ -1814,23 +1815,24 @@ void zlecenie::zalad0(int* zapelnieniee, int** ladunek_samolotue, int** tmp_prze
 void zlecenie::zalad1(int* zapelnieniee, int** ladunek_samolotue, int** tmp_przewozowae, int** rozwe, int tmpe, int n_wynikue, int ke)
 {	
 	int cos = ke;
+	int cosik = ke+1;
 	while(zapelnieniee[1]<=25 && ke<n_wyniku-2)
 	{
 		
 		//std::cout<<zapelnieniee[0]<<"\n";
 		int temp =  25 - zapelnieniee[1];
-		if(tmp_przewozowae[rozwe[1][ke+1]][rozwe[1][ke+2]]!=0)
+		if(tmp_przewozowae[rozwe[1][cosik]][rozwe[1][ke+2]]!=0)
 		
-			if(tmp_przewozowae[rozwe[1][ke+1]][rozwe[1][ke+2]] <= temp)
+			if(tmp_przewozowae[rozwe[1][cosik]][rozwe[1][ke+2]] <= temp)
 			{
-				ladunek_samolotue[1][rozwe[1][ke+2]] = ladunek_samolotue[1][rozwe[1][ke+2]] + tmp_przewozowae[rozwe[1][ke+1]][rozwe[1][ke+2]];
-				zapelnieniee[1] = zapelnieniee[1]+tmp_przewozowae[rozwe[1][ke+1]][rozwe[1][ke+2]];
-				tmp_przewozowae[rozwe[1][ke+1]][rozwe[1][ke+2]] = 0;
+				ladunek_samolotue[1][rozwe[1][ke+2]] = ladunek_samolotue[1][rozwe[1][ke+2]] + tmp_przewozowae[rozwe[1][cosik]][rozwe[1][ke+2]];
+				zapelnieniee[1] = zapelnieniee[1]+tmp_przewozowae[rozwe[1][cosik]][rozwe[1][ke+2]];
+				tmp_przewozowae[rozwe[1][cosik]][rozwe[1][ke+2]] = 0;
 			}
 			else
 				{
 					ladunek_samolotue[1][rozwe[1][ke+2]] = ladunek_samolotue[1][rozwe[1][ke+2]] + temp;
-					tmp_przewozowae[rozwe[1][ke+1]][rozwe[1][ke+2]] = tmp_przewozowae[rozwe[1][ke+1]][rozwe[1][ke+2]] - temp;
+					tmp_przewozowae[rozwe[1][cosik]][rozwe[1][ke+2]] = tmp_przewozowae[rozwe[1][cosik]][rozwe[1][ke+2]] - temp;
 					zapelnieniee[1] = zapelnieniee[1]+temp;
 				}
 		
@@ -1846,23 +1848,24 @@ void zlecenie::zalad1(int* zapelnieniee, int** ladunek_samolotue, int** tmp_prze
 void zlecenie::zalad2(int* zapelnieniee, int** ladunek_samolotue, int** tmp_przewozowae, int** rozwe, int tmpe, int n_wynikue, int ke)
 {	
 	int cos = ke;
+	int cosik = ke+1;
 	while(zapelnieniee[2]<=25 && ke<n_wyniku-2)
 	{
 		
 		//std::cout<<zapelnieniee[0]<<"\n";
 		int temp =  25 - zapelnieniee[2];
-		if(tmp_przewozowae[rozwe[2][ke+1]][rozwe[2][ke+2]]!=0)
+		if(tmp_przewozowae[rozwe[2][cosik]][rozwe[2][ke+2]]!=0)
 		
-			if(tmp_przewozowae[rozwe[2][ke+1]][rozwe[2][ke+2]] <= temp)
+			if(tmp_przewozowae[rozwe[2][cosik]][rozwe[2][ke+2]] <= temp)
 			{
-				ladunek_samolotue[2][rozwe[2][ke+2]] = ladunek_samolotue[2][rozwe[2][ke+2]] + tmp_przewozowae[rozwe[2][ke+1]][rozwe[2][ke+2]];
-				zapelnieniee[2] = zapelnieniee[2]+tmp_przewozowae[rozwe[2][ke+1]][rozwe[2][ke+2]];
-				tmp_przewozowae[rozwe[2][ke+1]][rozwe[2][ke+2]] = 0;
+				ladunek_samolotue[2][rozwe[2][ke+2]] = ladunek_samolotue[2][rozwe[2][ke+2]] + tmp_przewozowae[rozwe[2][cosik]][rozwe[2][ke+2]];
+				zapelnieniee[2] = zapelnieniee[2]+tmp_przewozowae[rozwe[2][cosik]][rozwe[2][ke+2]];
+				tmp_przewozowae[rozwe[2][cosik]][rozwe[2][ke+2]] = 0;
 			}
 			else
 				{
 					ladunek_samolotue[2][rozwe[2][ke+2]] = ladunek_samolotue[2][rozwe[2][ke+2]] + temp;
-					tmp_przewozowae[rozwe[2][ke+1]][rozwe[2][ke+2]] = tmp_przewozowae[rozwe[2][ke+1]][rozwe[2][ke+2]] - temp;
+					tmp_przewozowae[rozwe[2][cosik]][rozwe[2][ke+2]] = tmp_przewozowae[rozwe[2][cosik]][rozwe[2][ke+2]] - temp;
 					zapelnieniee[2] = zapelnieniee[2]+temp;
 				}
 		
