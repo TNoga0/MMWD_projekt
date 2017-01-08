@@ -349,7 +349,7 @@ void zlecenie::resizeWynik(int n)
     tmp_wynik=nowa;
     //n_wyniku=n_wyniku+1;
     //delete [] nowa;
-    std::cout<<"kurwa\n";
+    //std::cout<<"kurwa\n";
 
 }
 
@@ -434,6 +434,9 @@ void zlecenie::test()
 {
 int cel=ObliczFCelu(tmp_wynik);
 std::cout<<"\nWartosc f celu: "<<cel<<"\n";
+
+int dopu=sprawdz_dopuszczalnosc(tmp_wynik);
+std::cout<<"\nczy dopu: "<<dopu<<"\n";
 
 }
 
@@ -526,7 +529,7 @@ cnt=0;
                                 }
                                else
                                 {
-std::cout<<"   tutaj   \n";
+//std::cout<<"   tutaj   \n";
                                  temp1[j]=temp1[j]+(lista_przewozowa[odkad1][j]-(zaladowanie_samolotu[0][ktoraiteracja]+lista_przewozowa[odkad1][j]-25));
                                  lista_przewozowa[odkad1][j]=(zaladowanie_samolotu[0][ktoraiteracja]+lista_przewozowa[odkad1][j]-25);
                                  zaladowanie_samolotu[0][ktoraiteracja]=25;
@@ -695,25 +698,18 @@ std::cout<<"   tutaj   \n";
             std::cout<<lista_przewozowa[i][j]<<" ";
         std::cout<<"\n\n";
     }
-
      std::cout<<"\n\n";
      std::cout<<odkad3;
      std::cout<<" ";
      std::cout <<odkad1;
-
-
-
         std::cout<<"------------------------\n";
 	std::cout<< "tmp : \n";
-
         for(int j=0;j<rozmiar;j++)
         {
-
             std::cout<<temp1[j]<<" ";
             std::cout<<temp2[j]<<" ";
             std::cout<<temp3[j]<<" ";
             std::cout<<"\n";
-
      	}
         std::cout<<"\n"; */
     }
@@ -947,6 +943,13 @@ std::cout<<"\ntj1: "<<trzeci_j1<<" tj2: "<<trzeci_j2<<"\n";
             std::cout<<tmp_wynik[i][j]<<" ";
             std::cout<<"\n";
         }
+    std::cout<<"\nzalad po sasiedztwie:\n";
+        for (int i = 0; i<3; i++)
+        {
+            for(int j=0;j<n_wyniku;j++)
+            std::cout<<zaladowanie_samolotu[i][j]<<" ";
+            std::cout<<"\n";
+        }
 
 
 }
@@ -957,11 +960,11 @@ int zlecenie:: sprawdz_dopuszczalnosc(int ** rozw)
 	int **tmp_przewozowa = new int * [rozmiar];
 	for(int i=0;i<rozmiar;i++)
 		tmp_przewozowa[i] = new int[rozmiar];
-		
+
 		int **ladunek_samolotu = new int * [3];
 	for(int i=0;i<3;i++)
 		ladunek_samolotu[i] = new int[rozmiar];
-		
+
 	for(int w=0;w<rozmiar;w++)
 	{
 		for(int k=0;k<rozmiar;k++)
@@ -969,7 +972,7 @@ int zlecenie:: sprawdz_dopuszczalnosc(int ** rozw)
 			tmp_przewozowa[w][k]=lista_przewozowa[w][k];
 		}
 	}
-	
+
 	for(int w=0;w<3;w++)
 	{
 		for(int k=0;k<rozmiar;k++)
@@ -985,11 +988,11 @@ int zlecenie:: sprawdz_dopuszczalnosc(int ** rozw)
     int dist_plane3;
     int tmp = 0;
     int *zapelnienie = new int[3]; //jak bardzo sumarycznie zapelniony jest dany samolot w danej iteracji;
-	for(int x=0;x<3;x++) 
+	for(int x=0;x<3;x++)
 	{
 		zapelnienie[x]=0;
 	}
-	
+
 	for(int i=0;i<n_wyniku-1;i++) //nie wiem czy drugi warunek ok
 	{
 		for(int x=0;x<i;x++)
@@ -1001,14 +1004,14 @@ int zlecenie:: sprawdz_dopuszczalnosc(int ** rozw)
 		}
 		else
 		{
-		
+
 //		std::cout<<"poszło\n";
 	ladunek_samolotu[0][rozw[0][i]] = ladunek_samolotu[0][rozw[0][i]] + tmp_przewozowa[(rozw[0][0])][(rozw[0][i])]; //wrzucam paczki do pierwszego lotniska w kolejnoĹ?ci. Koniecznie pierwsza wspĂłĹ?rzÄ?dna listy przewozowej staĹ?a bo biorÄ? tylko z jednego lotniska
 	tmp_przewozowa[(rozw[0][0])][(rozw[0][i])] = 0; //zerujÄ? pole listy przewozowej, bo na poczÄ?tek wrzucam do samolotu wszystkie paczki do danego lotniska
 	zapelnienie[0]=zapelnienie[0]+ladunek_samolotu[0][rozw[0][i]]; //dorzucam do sumarycznego zapeĹ?nienia iloĹ?Ä? paczek
 		if(zapelnienie[0]>=25)
 		{
-			
+
 //			std::cout<<"poszło\n";
 			tmp=zapelnienie[0]-25; //tmp Ĺźeby byĹ?o wiadomo ile ponad stan odjÄ?Ä?
 			tmp_przewozowa[(rozw[0][0])][(rozw[0][i])] = tmp_przewozowa[(rozw[0][0])][(rozw[0][i])]+tmp; //dodajÄ? do przewozowej
@@ -1019,7 +1022,7 @@ int zlecenie:: sprawdz_dopuszczalnosc(int ** rozw)
 		}
 		}
 	}
-	
+
 //		for(int h=0;h<rozmiar;h++)
 //		std::cout<<ladunek_samolotu[0][h];
 //		std::cout<<tmp_przewozowa[(rozw[0][0])][(rozw[0][i])];
@@ -1034,9 +1037,9 @@ int zlecenie:: sprawdz_dopuszczalnosc(int ** rozw)
 //		std::cout<<"\n";
 //	}
 //	std::cout<<"\n \n";
-	}	
+	}
 
-		
+
 	for(int j=1;j<n_wyniku-1;j++)
 	{
 	for(int x=0;x<j;x++)
@@ -1055,7 +1058,7 @@ int zlecenie:: sprawdz_dopuszczalnosc(int ** rozw)
 
 		if(zapelnienie[1]>25)
 		{
-			
+
 			tmp=zapelnienie[1]-25;
 			tmp_przewozowa[(rozw[1][0])][(rozw[1][j])] = tmp_przewozowa[(rozw[1][0])][(rozw[1][j])]+tmp;
 			ladunek_samolotu[1][rozw[1][j]] = ladunek_samolotu[1][rozw[1][j]]-tmp;
@@ -1066,8 +1069,8 @@ int zlecenie:: sprawdz_dopuszczalnosc(int ** rozw)
 		}
 	}
 	}
-	
-	
+
+
 	for(int k=1;k<n_wyniku-1;k++)
 	{
 		for(int x=0;x<k;x++)
@@ -1093,18 +1096,18 @@ int zlecenie:: sprawdz_dopuszczalnosc(int ** rozw)
 		}
 	}
 }
-	}	
-	
+	}
+
 		//////////////
-			for(int x=0;x<3;x++) 
+	/*		for(int x=0;x<3;x++)
 	{
 		std::cout<<zapelnienie[x];
 		std::cout<<"\n";
 	}
 		std::cout<<"\n";
-	
+*/
     //WYPISANIE
-    
+/*
     for(int w=0;w<rozmiar;w++)
 	{
 		for(int k=0;k<rozmiar;k++)
@@ -1121,45 +1124,45 @@ int zlecenie:: sprawdz_dopuszczalnosc(int ** rozw)
 		{
 			std::cout<<(ladunek_samolotu[w][k]);
 			std::cout<<" ";
-			
+
 		}
 		std::cout<<"\n";
 	}
 	std::cout<<"\n \n";
-	
+
 	int temp;
 	//std::cout<<"poszło\n";
-		
+*/
 	//-------------------------------------------------- po pierwsze jiteracji
 for(int k=0;k<n_wyniku-1;k++)
-   {	
-			
+   {
+
         dist_plane1 = odleglosci[rozw[0][k]][rozw[0][k+1]]; //odlegĹ?oĹ?Ä? do kolejnego lotniska 1 samolotu, ma to na celu determinowanie ktĂłry doleci pierwszy jeĹ?li lecÄ? na to samo lotnisko
         dist_plane2 = odleglosci[rozw[1][k]][rozw[1][k+1]];
         dist_plane3 = odleglosci[rozw[2][k]][rozw[2][k+1]];
-        
+
         if(dist_plane1<=dist_plane2 && dist_plane1<dist_plane3)//sprawedzanie ktĂłry doleci 1 na miejsce
 		{
 		//rozĹ?adunek samolotu (pierwszego)
 		this->roz0(zapelnienie,ladunek_samolotu,tmp_przewozowa,rozw,tmp,n_wyniku,k);	//rozładowanie pierwszego samolotu
-			this->zalad0(zapelnienie,ladunek_samolotu,tmp_przewozowa,rozw,tmp,n_wyniku,k);	//załadunek pierwszego samolotu kolejnymi paczkami z lotniska na które przyleciał	
-				
+			this->zalad0(zapelnienie,ladunek_samolotu,tmp_przewozowa,rozw,tmp,n_wyniku,k);	//załadunek pierwszego samolotu kolejnymi paczkami z lotniska na które przyleciał
+
 		if(dist_plane2<dist_plane3) //sprawdzenie który z pozostałej dwójki będzie wczesniej
 		{
 			this->roz1(zapelnienie,ladunek_samolotu,tmp_przewozowa,rozw,tmp,n_wyniku,k);
 			this->roz2(zapelnienie,ladunek_samolotu,tmp_przewozowa,rozw,tmp,n_wyniku,k);
-		           
-				   this->zalad1(zapelnienie,ladunek_samolotu,tmp_przewozowa,rozw,tmp,n_wyniku,k);  
+
+				   this->zalad1(zapelnienie,ladunek_samolotu,tmp_przewozowa,rozw,tmp,n_wyniku,k);
 				   this->zalad2(zapelnienie,ladunek_samolotu,tmp_przewozowa,rozw,tmp,n_wyniku,k);
-		}                      
+		}
 		else
 		{
 			this->roz2(zapelnienie,ladunek_samolotu,tmp_przewozowa,rozw,tmp,n_wyniku,k);
 			this->roz1(zapelnienie,ladunek_samolotu,tmp_przewozowa,rozw,tmp,n_wyniku,k);
-			this->zalad2(zapelnienie,ladunek_samolotu,tmp_przewozowa,rozw,tmp,n_wyniku,k);  
+			this->zalad2(zapelnienie,ladunek_samolotu,tmp_przewozowa,rozw,tmp,n_wyniku,k);
 				   this->zalad1(zapelnienie,ladunek_samolotu,tmp_przewozowa,rozw,tmp,n_wyniku,k);
 		}
-		}                                                                     
+		}
     	else if(dist_plane2<dist_plane1 && dist_plane2<=dist_plane3) //analogicznie jak dwa ify wyżej
 		{
 		this->roz1(zapelnienie,ladunek_samolotu,tmp_przewozowa,rozw,tmp,n_wyniku,k);
@@ -1167,10 +1170,10 @@ for(int k=0;k<n_wyniku-1;k++)
 	    if(dist_plane1<dist_plane3)
 	    {
 	    	this->roz0(zapelnienie,ladunek_samolotu,tmp_przewozowa,rozw,tmp,n_wyniku,k);
-			this->roz2(zapelnienie,ladunek_samolotu,tmp_przewozowa,rozw,tmp,n_wyniku,k);			
+			this->roz2(zapelnienie,ladunek_samolotu,tmp_przewozowa,rozw,tmp,n_wyniku,k);
 				this->zalad0(zapelnienie,ladunek_samolotu,tmp_przewozowa,rozw,tmp,n_wyniku,k);
 			 	this->zalad2(zapelnienie,ladunek_samolotu,tmp_przewozowa,rozw,tmp,n_wyniku,k);
-				
+
 	    }
 	    else
 	    {
@@ -1178,49 +1181,49 @@ for(int k=0;k<n_wyniku-1;k++)
 			this->roz0(zapelnienie,ladunek_samolotu,tmp_przewozowa,rozw,tmp,n_wyniku,k);
 				this->zalad2(zapelnienie,ladunek_samolotu,tmp_przewozowa,rozw,tmp,n_wyniku,k);
 				this->zalad0(zapelnienie,ladunek_samolotu,tmp_przewozowa,rozw,tmp,n_wyniku,k);
-				
+
 	    }
 		}
 		else if(dist_plane3<=dist_plane1 && dist_plane3<dist_plane2)
 		{
-		this->roz2(zapelnienie,ladunek_samolotu,tmp_przewozowa,rozw,tmp,n_wyniku,k);    
-		this->zalad2(zapelnienie,ladunek_samolotu,tmp_przewozowa,rozw,tmp,n_wyniku,k);           
+		this->roz2(zapelnienie,ladunek_samolotu,tmp_przewozowa,rozw,tmp,n_wyniku,k);
+		this->zalad2(zapelnienie,ladunek_samolotu,tmp_przewozowa,rozw,tmp,n_wyniku,k);
 		if(dist_plane1<dist_plane2)
 		{
 
 			this->roz0(zapelnienie,ladunek_samolotu,tmp_przewozowa,rozw,tmp,n_wyniku,k);
 			this->roz1(zapelnienie,ladunek_samolotu,tmp_przewozowa,rozw,tmp,n_wyniku,k);
-			
+
 				this->zalad0(zapelnienie,ladunek_samolotu,tmp_przewozowa,rozw,tmp,n_wyniku,k);
 				this->zalad1(zapelnienie,ladunek_samolotu,tmp_przewozowa,rozw,tmp,n_wyniku,k);
-		
+
 		}
 		else
-		{                                                                     
-	
+		{
+
 		this->roz1(zapelnienie,ladunek_samolotu,tmp_przewozowa,rozw,tmp,n_wyniku,k);
 		this->roz0(zapelnienie,ladunek_samolotu,tmp_przewozowa,rozw,tmp,n_wyniku,k);
 
 			this->zalad1(zapelnienie,ladunek_samolotu,tmp_przewozowa,rozw,tmp,n_wyniku,k);
-			this->zalad0(zapelnienie,ladunek_samolotu,tmp_przewozowa,rozw,tmp,n_wyniku,k);	
-				
+			this->zalad0(zapelnienie,ladunek_samolotu,tmp_przewozowa,rozw,tmp,n_wyniku,k);
+
 		}
 		}
-	
-	
-//	    WYPISANIE
-	
+
+
+/*  //	    WYPISANIE
+
 	//--------------------------------
 	std::cout<<"\n";
-		for(int x=0;x<3;x++) 
+		for(int x=0;x<3;x++)
 	{
 		std::cout<<zapelnienie[x];
 		std::cout<<"\n";
 	}
 		std::cout<<"\n";
-	
+
     //WYPISANIE
-    
+
     for(int w=0;w<rozmiar;w++)
 	{
 		for(int k=0;k<rozmiar;k++)
@@ -1231,7 +1234,7 @@ for(int k=0;k<n_wyniku-1;k++)
 		std::cout<<"\n";
 	}
 	std::cout<<"\n \n";
-	
+std::cout<<"\nzaladowanko dopu:\n";
 	for(int w=0;w<3;w++)
 	{
 		for(int k=0;k<rozmiar;k++)
@@ -1242,20 +1245,20 @@ for(int k=0;k<n_wyniku-1;k++)
 		std::cout<<"\n";
 	}
 	std::cout<<"\n \n------------------------------";
-	
+
 	//--------------------------------
-    
+*/
 }
 
- 	 std::cout<<"\nwynik:\n";
+ 	 std::cout<<"\nwynik dopu:\n";
         for (int i = 0; i<3; i++)
         {
             for(int j=0;j<n_wyniku;j++)
             std::cout<<rozw[i][j]<<" ";
             std::cout<<"\n";
         }
-    
-    
+
+
 	for(int w=0;w<rozmiar;w++)
 	{
 		for(int k=0;k<rozmiar;k++)
@@ -1284,18 +1287,18 @@ void zlecenie::roz0(int* zapelnieniee, int** ladunek_samolotue, int** tmp_przewo
 //		//zaĹ?adunek pierwszego samolotu
 //		if(zapelnieniee[0]<25) //jesli miejsce w samolocie to ta sama funkcja zapeĹ?niajÄ?ca co dla 1 iteracji, ale zwiÄ?kszone i
 //		{
-//			
+//
 //			for(int i=ke+2;i<(n_wynikue-1);i++)
 //			{
-//				
+//
 ////				std::cout<<zapelnieniee[0];
 ////				std::cout<<" ";
-//				
+//
 //				for(int x=ke+1;x<i;x++)
 //				{
 //					if(tmp_przewozowae[(rozwe[0][chuj-1])][(rozwe[0][chuj])] == tmp_przewozowae[(rozwe[0][chuj-1])][(rozwe[0][x])])
 //					{
-//						
+//
 //						break;
 //					}
 //					else
@@ -1315,11 +1318,11 @@ void zlecenie::roz0(int* zapelnieniee, int** ladunek_samolotue, int** tmp_przewo
 //					chuj++;
 //				}
 //					}
-//					
+//
 //				}
-//				
+//
 //			}
-//				
+//
 //		}
 }
 
@@ -1331,14 +1334,14 @@ void zlecenie::roz1(int* zapelnieniee, int** ladunek_samolotue, int** tmp_przewo
 			ladunek_samolotue[1][rozwe[1][ke+1]]=0;
 			if(zapelnieniee[1]<25) //jesli miejsce w samolocie to ta sama funkcja zapeĹ?niajÄ?ca co dla 1 iteracji, ale zwiÄ?kszone i
 			{
-				
+
 			for(int i=ke+2;i<n_wynikue-1;i++)
 			{
 				for(int x=ke+1;x<i;x++)
 				{
 					if(tmp_przewozowae[(rozwe[1][chuj-1])][(rozwe[1][chuj])] == tmp_przewozowae[(rozwe[1][chuj-1])][(rozwe[1][x])])
 					{
-						
+
 						break;
 					}
 					else
@@ -1372,14 +1375,14 @@ void zlecenie::roz2(int* zapelnieniee, int** ladunek_samolotue, int** tmp_przewo
 			ladunek_samolotue[2][rozwe[2][ke+1]]=0;
 			if(zapelnieniee[2]<25) //jesli miejsce w samolocie to ta sama funkcja zapeĹ?niajÄ?ca co dla 1 iteracji, ale zwiÄ?kszone i
 			{
-				
+
 			for(int i=ke+2;i<n_wynikue-1;i++)
 			{
 				for(int x=ke+1;x<i;x++)
 				{
 					if(tmp_przewozowae[(rozwe[2][chuj-1])][(rozwe[2][chuj])] == tmp_przewozowae[(rozwe[2][chuj-1])][(rozwe[2][x])])
 					{
-						
+
 						break;
 					}
 					else
@@ -1605,7 +1608,6 @@ void zlecenie::zlota_raczka()
             std::cout<<zaladowanie_samolotu[i][j]<<" ";
             std::cout<<"\n";
         }
-
     std::cout<<"Lista Przewozowa chuj: \n";
     for(int i =0;i<rozmiar;i++)
     {
@@ -1613,29 +1615,197 @@ void zlecenie::zlota_raczka()
             std::cout<<lista_przewozowa[i][j]<<" ";
         std::cout<<"\n\n";
     }
-
      std::cout<<"\n\n";
      std::cout<<odkad3;
      std::cout<<" ";
      std::cout <<odkad1;
-
-
-
         std::cout<<"------------------------\n";
 	std::cout<< "tmp : \n";
-
         for(int j=0;j<rozmiar;j++)
         {
-
             std::cout<<temp1[j]<<" ";
             std::cout<<temp2[j]<<" ";
             std::cout<<temp3[j]<<" ";
             std::cout<<"\n";
-
      	}
         std::cout<<"\n"; */
     }
     //std::cout<<"po zalad kurwa";
+
+
+    //zabawa
+
+   if(czyNiePuste(lista_przewozowa))
+   {
+       odkad1=maximum(temp1);
+       odkad2=maximum(temp2);
+       odkad3=maximum(temp3);
+       ktoraiteracja++;
+       cnt=0;
+       while(czyNiePuste(lista_przewozowa))
+    {
+        resizeWynik(ktoraiteracja);
+        resizeZaladowanie(ktoraiteracja);
+        std::cout<<"\nzalad w tym tym: "<<zaladowanie_samolotu[0][ktoraiteracja]<<" "<<ktoraiteracja<<"\n";
+        while(((zaladowanie_samolotu[0][ktoraiteracja-1])<25)&&(cnt<(rozmiar)))   //1 samolot
+            {
+
+
+                    for (int j =0; j<rozmiar; j++)
+                    {
+                        cnt++;
+                       if(lista_przewozowa[odkad1][j]!=0)
+                       {
+                           if(((zaladowanie_samolotu[0][ktoraiteracja-1])+lista_przewozowa[odkad1][j])<=25)
+                           {
+
+                               temp1[j]=temp1[j]+lista_przewozowa[odkad1][j];//j=i
+                               zaladowanie_samolotu[0][ktoraiteracja-1]=zaladowanie_samolotu[0][ktoraiteracja-1]+lista_przewozowa[odkad1][j];
+                               lista_przewozowa[odkad1][j]=0;
+
+                           }
+                           else
+                           {
+                               if(zaladowanie_samolotu[0][ktoraiteracja-1]==25)
+                                {
+
+                                }
+                               else
+                                {
+//std::cout<<"   tutaj   \n";
+
+                                 temp1[j]=temp1[j]+(lista_przewozowa[odkad1][j]-(zaladowanie_samolotu[0][ktoraiteracja-1]+lista_przewozowa[odkad1][j]-25));
+                                 lista_przewozowa[odkad1][j]=(zaladowanie_samolotu[0][ktoraiteracja-1]+lista_przewozowa[odkad1][j]-25);
+                                 zaladowanie_samolotu[0][ktoraiteracja-1]=25;
+
+
+                                }
+
+                           }
+                       }
+
+
+                }
+            }
+//std::cout<<"\ntest2\n";
+            while(((zaladowanie_samolotu[1][ktoraiteracja-1])<25)&&(cnt<(2*rozmiar)))   //2 samolot
+            {
+
+
+                    for (int j =0; j<rozmiar; j++)
+                    {
+                        cnt++;
+                       if(lista_przewozowa[odkad2][j]!=0)
+                       {
+                           if((zaladowanie_samolotu[1][ktoraiteracja-1]+lista_przewozowa[odkad2][j])<=25)
+                           {
+                               temp2[j]=temp2[j]+lista_przewozowa[odkad2][j];
+                               zaladowanie_samolotu[1][ktoraiteracja-1]=zaladowanie_samolotu[1][ktoraiteracja-1]+lista_przewozowa[odkad2][j];
+                               lista_przewozowa[odkad2][j]=0;
+
+                           }
+                           else
+                           {
+                               if(zaladowanie_samolotu[1][ktoraiteracja-1]==25)
+                                {
+
+                                }
+                               else
+                                {
+                                 temp2[j]=temp2[j]+(lista_przewozowa[odkad2][j]-(zaladowanie_samolotu[1][ktoraiteracja-1]+lista_przewozowa[odkad2][j]-25));
+                                 lista_przewozowa[odkad2][j]=(zaladowanie_samolotu[1][ktoraiteracja-1]+lista_przewozowa[odkad2][j]-25);
+                                 zaladowanie_samolotu[1][ktoraiteracja-1]=25;
+
+
+                                }
+
+                           }
+                       }
+
+
+                }
+
+            }
+
+//std::cout<<"\ntest3\n";
+            while((zaladowanie_samolotu[2][ktoraiteracja-1])<25&&(cnt<(3*rozmiar)))   //3 samolot
+            {
+
+
+                    for (int j =0; j<rozmiar; j++)
+                    {
+                        cnt++;
+                    	if(lista_przewozowa[odkad3][j]!=0)
+                       	{
+                           if((zaladowanie_samolotu[2][ktoraiteracja-1]+lista_przewozowa[odkad3][j])<=25)
+                           {
+                               temp3[j]=temp3[j]+lista_przewozowa[odkad3][j];
+                               zaladowanie_samolotu[2][ktoraiteracja-1]=zaladowanie_samolotu[2][ktoraiteracja-1]+lista_przewozowa[odkad3][j];
+                               lista_przewozowa[odkad3][j]=0;
+                           }
+                           else
+                           {
+                               if(zaladowanie_samolotu[2][ktoraiteracja-1]==25)
+                                {
+
+                                }
+                               else
+                                {
+                                 temp3[j]=temp3[j]+(lista_przewozowa[odkad3][j]-(zaladowanie_samolotu[2][ktoraiteracja-1]+lista_przewozowa[odkad3][j]-25));
+                                 lista_przewozowa[odkad3][j]=(zaladowanie_samolotu[2][ktoraiteracja-1]+lista_przewozowa[odkad3][j]-25);
+                                 zaladowanie_samolotu[2][ktoraiteracja-1]=25;
+
+                                }
+
+                           }
+                       }
+
+
+                }
+            }
+
+
+
+
+        if(czyNiePuste(temp1))
+        {
+        odkad1=maximum(temp1);
+        tmp_wynik[0][ktoraiteracja-1]=odkad1;
+        zaladowanie_samolotu[0][ktoraiteracja-1]=zaladowanie_samolotu[0][ktoraiteracja-2]-temp1[odkad1];
+        temp1[odkad1]=0;
+        }
+        else{
+            tmp_wynik[0][ktoraiteracja-1]=0;
+
+        }
+
+        if(czyNiePuste(temp2))
+        {
+        odkad2=maximum(temp2);
+        tmp_wynik[1][ktoraiteracja-1]=odkad2;
+        zaladowanie_samolotu[1][ktoraiteracja-1]=zaladowanie_samolotu[1][ktoraiteracja-2]-temp2[odkad2];
+        temp2[odkad2]=0;
+        }
+        else{
+            tmp_wynik[1][ktoraiteracja-1]=0;
+        }
+
+         if(czyNiePuste(temp3))
+        {
+        odkad3=maximum(temp3);
+        tmp_wynik[2][ktoraiteracja-1]=odkad3;
+        zaladowanie_samolotu[2][ktoraiteracja-1]=zaladowanie_samolotu[2][ktoraiteracja-2]-temp3[odkad3];
+        temp3[odkad3]=0;
+        }
+        else{
+            tmp_wynik[2][ktoraiteracja-1]=0;
+        }
+        ktoraiteracja++;
+        cnt=0;
+   }
+}
+
+
 
 
     if(!czyNiePuste(lista_przewozowa))
@@ -1780,16 +1950,16 @@ void zlecenie::czyscplik()
 
 
 void zlecenie::zalad0(int* zapelnieniee, int** ladunek_samolotue, int** tmp_przewozowae, int** rozwe, int tmpe, int n_wynikue, int ke)
-{	
+{
 	int cos = ke;
 	int cosik = ke+1;
 	while(zapelnieniee[0]<=25 && ke<n_wyniku-2)
 	{
-		
+
 		//std::cout<<zapelnieniee[0]<<"\n";
 		int temp =  25 - zapelnieniee[0];
 		if(tmp_przewozowae[rozwe[0][cosik]][rozwe[0][ke+2]]!=0)
-		
+
 			if(tmp_przewozowae[rozwe[0][cosik]][rozwe[0][ke+2]] <= temp)
 			{
 				ladunek_samolotue[0][rozwe[0][ke+2]] = ladunek_samolotue[0][rozwe[0][ke+2]] + tmp_przewozowae[rozwe[0][cosik]][rozwe[0][ke+2]];
@@ -1802,27 +1972,27 @@ void zlecenie::zalad0(int* zapelnieniee, int** ladunek_samolotue, int** tmp_prze
 					tmp_przewozowae[rozwe[0][cosik]][rozwe[0][ke+2]] = tmp_przewozowae[rozwe[0][cosik]][rozwe[0][ke+2]] - temp;
 					zapelnieniee[0] = zapelnieniee[0]+temp;
 				}
-		
+
 		temp = 0;
-		ke++;	
+		ke++;
 	//std::cout<<"\n\ntera ke : "<<ke<<"\n";
 	}
 	ke = cos;
 	if(zapelnieniee[0]==25)
-	return;	
+	return;
 }
 
 void zlecenie::zalad1(int* zapelnieniee, int** ladunek_samolotue, int** tmp_przewozowae, int** rozwe, int tmpe, int n_wynikue, int ke)
-{	
+{
 	int cos = ke;
 	int cosik = ke+1;
 	while(zapelnieniee[1]<=25 && ke<n_wyniku-2)
 	{
-		
+
 		//std::cout<<zapelnieniee[0]<<"\n";
 		int temp =  25 - zapelnieniee[1];
 		if(tmp_przewozowae[rozwe[1][cosik]][rozwe[1][ke+2]]!=0)
-		
+
 			if(tmp_przewozowae[rozwe[1][cosik]][rozwe[1][ke+2]] <= temp)
 			{
 				ladunek_samolotue[1][rozwe[1][ke+2]] = ladunek_samolotue[1][rozwe[1][ke+2]] + tmp_przewozowae[rozwe[1][cosik]][rozwe[1][ke+2]];
@@ -1835,27 +2005,27 @@ void zlecenie::zalad1(int* zapelnieniee, int** ladunek_samolotue, int** tmp_prze
 					tmp_przewozowae[rozwe[1][cosik]][rozwe[1][ke+2]] = tmp_przewozowae[rozwe[1][cosik]][rozwe[1][ke+2]] - temp;
 					zapelnieniee[1] = zapelnieniee[1]+temp;
 				}
-		
+
 		temp = 0;
-		ke++;	
+		ke++;
 
 	}
 	ke = cos;
 	if(zapelnieniee[1]==25)
-	return;	
+	return;
 }
 
 void zlecenie::zalad2(int* zapelnieniee, int** ladunek_samolotue, int** tmp_przewozowae, int** rozwe, int tmpe, int n_wynikue, int ke)
-{	
+{
 	int cos = ke;
 	int cosik = ke+1;
 	while(zapelnieniee[2]<=25 && ke<n_wyniku-2)
 	{
-		
+
 		//std::cout<<zapelnieniee[0]<<"\n";
 		int temp =  25 - zapelnieniee[2];
 		if(tmp_przewozowae[rozwe[2][cosik]][rozwe[2][ke+2]]!=0)
-		
+
 			if(tmp_przewozowae[rozwe[2][cosik]][rozwe[2][ke+2]] <= temp)
 			{
 				ladunek_samolotue[2][rozwe[2][ke+2]] = ladunek_samolotue[2][rozwe[2][ke+2]] + tmp_przewozowae[rozwe[2][cosik]][rozwe[2][ke+2]];
@@ -1868,17 +2038,15 @@ void zlecenie::zalad2(int* zapelnieniee, int** ladunek_samolotue, int** tmp_prze
 					tmp_przewozowae[rozwe[2][cosik]][rozwe[2][ke+2]] = tmp_przewozowae[rozwe[2][cosik]][rozwe[2][ke+2]] - temp;
 					zapelnieniee[2] = zapelnieniee[2]+temp;
 				}
-		
+
 		temp = 0;
-		ke++;	
+		ke++;
 
 	}
 	ke = cos;
 	if(zapelnieniee[2]==25)
-	return;	
+	return;
 }
-
-
 
 
 
