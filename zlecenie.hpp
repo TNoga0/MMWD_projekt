@@ -17,7 +17,7 @@ private:
     int n_zabr;
     int **zabronienia;   // to bedzie tablela (symetryczna) gdzie damy np blokade na 3 iteracje
 
-    int **best_wynik;
+   // int **best_wynik;
     int **tmp_wynik;
     int **zaladowanie_samolotu;
     int **sasiedztwo;
@@ -32,6 +32,7 @@ struct element
 };
 
     struct element **tabu_list;
+    int **best_wynik;
     zlecenie();
     ~zlecenie();
     void usun();
@@ -55,6 +56,9 @@ struct element
     void roz0(int* zapelnieniee, int** ladunek_samolotue, int** tmp_przewozowae, int** rozwe, int tmpe, int n_wynikue, int ke);
     void roz1(int* zapelnieniee, int** ladunek_samolotue, int** tmp_przewozowae, int** rozwe, int tmpe, int n_wynikue, int ke);
     void roz2(int* zapelnieniee, int** ladunek_samolotue, int** tmp_przewozowae, int** rozwe, int tmpe, int n_wynikue, int ke);
+    void zalad0(int* zapelnieniee, int** ladunek_samolotue, int** tmp_przewozowae, int** rozwe, int tmpe, int n_wynikue, int ke);
+    void zalad1(int* zapelnieniee, int** ladunek_samolotue, int** tmp_przewozowae, int** rozwe, int tmpe, int n_wynikue, int ke);
+    void zalad2(int* zapelnieniee, int** ladunek_samolotue, int** tmp_przewozowae, int** rozwe, int tmpe, int n_wynikue, int ke);
     void wykonaj_sasiedztwo();
     void generuj_tabu();
     void zlota_raczka();
