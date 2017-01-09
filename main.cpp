@@ -5,7 +5,6 @@ using namespace std;
 
 int main()
 {
-    cout << "siemanko\n" <<endl;
     bool k;
     zlecenie firma1(8,7,3);
     //firma1.show_lista();
@@ -19,21 +18,18 @@ int main()
         firma1.dopliku();
       cout<<"\n";
     firma1.generuj_tabu();
-    for(int i=0;i<50;i++)
+    for(int i=0;i<100;i++)
     {
         cout<<"\nSasiedztwo: \n";
         firma1.wykonaj_sasiedztwo();
+        
         cout<<"\nZLOTA RACZKA:\n";
         firma1.zlota_raczka();
         firma1.dekremTabu();
         firma1.test();
         firma1.dopliku();
+        cout<<"\niteracja:"<<i<<"\n";
     }
-
-
-
-
-
 
         firma1.usun();
 
