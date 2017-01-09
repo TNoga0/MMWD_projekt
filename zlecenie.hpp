@@ -1,6 +1,3 @@
-#ifndef ZLECENIE_HPP_INCLUDED
-#define ZLECENIE_HPP_INCLUDED
-#define spalanie 0.5   //wartosc z dupska
 #define ladownosc 25
 #define liczbaSamolotow 3
 
@@ -18,7 +15,7 @@ private:
     int **zabronienia;   // to bedzie tablela (symetryczna) gdzie damy np blokade na 3 iteracje
 
    // int **best_wynik;
-    int **tmp_wynik;
+
     int **zaladowanie_samolotu;
     int **sasiedztwo;
     int **ladunek_samolotu;
@@ -30,7 +27,7 @@ struct element
     int dokad;
     int czas;
 };
-
+	    int **tmp_wynik;
     struct element **tabu_list;
     int **best_wynik;
     zlecenie();
